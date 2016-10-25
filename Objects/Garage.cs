@@ -9,6 +9,7 @@ namespace KlasGarage.Objects
     {
         private List<T> vehicleList;
         public int Max { get; private set; }
+        public string Name { get; private set; }
         public bool IsReadOnly
         {
             get;
@@ -19,8 +20,9 @@ namespace KlasGarage.Objects
             get { return vehicleList.Count; }
         }
 
-        public Garage(int max)
+        public Garage(string namn, int max)
         {
+            Name = namn;
             Max = max;
             vehicleList = new List<T>();
             IsReadOnly = false;
