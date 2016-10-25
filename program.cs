@@ -43,6 +43,14 @@ namespace KlasGarage
         {
             Garage<Vehicle> GreatGarage = new Garage<Vehicle>("Klas Garage", 50);
             FillGarage(GreatGarage);
+            GarageUI garageui = new GarageUI(GreatGarage);
+            garageui.SetToMainMenu();
+            while (garageui.RunMenu())
+            {
+
+            }
+
+            /*
             foreach (Vehicle fordon in GreatGarage)
             {
                 Console.WriteLine(fordon);
@@ -55,7 +63,7 @@ namespace KlasGarage
             foreach (Vehicle fordon in query)
             {
                 Console.WriteLine(fordon);
-            }
+            }*/
 
         }
         public static void GarageUI(Garage<Vehicle> garage)
