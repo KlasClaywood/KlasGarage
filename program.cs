@@ -41,13 +41,13 @@ namespace KlasGarage
         }
         public static void Main()
         {
-            Garage<Vehicle> GreatGarage = new Garage<Vehicle>(50);
+            Garage<Vehicle> GreatGarage = new Garage<Vehicle>("Klas Garage", 50);
             FillGarage(GreatGarage);
             foreach (Vehicle fordon in GreatGarage)
             {
                 Console.WriteLine(fordon);
             }
-            Console.ReadKey();
+            Console.ReadLine();
             var query = from vehicle in GreatGarage
                         where vehicle.Type == "Car"
                         orderby vehicle.REG_NR
