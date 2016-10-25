@@ -45,27 +45,89 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void SkapaFlygplan()
         {
-            throw new NotImplementedException();
+            Vehicle temp = SkapaGenerisktFordon("Airplane", 3);
+            Console.WriteLine("Input maximum altitude:");
+            int max = int.Parse(Console.ReadLine());
+            Console.WriteLine("Input airline name:");
+            string airl = Console.ReadLine();
+
+            garage.Add(new Airplane(temp.REG_NR, temp.Color, temp.NumberofWheels, temp.ConstructionYear, max, airl));
+            SetToMainMenu();
+        }
+
+        private void SetToMainMenu()
+        {
+            var query = from item in kommandolista
+                        where item.Category == "Huvudmeny"
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+            active = activeMenu.ElementAt(0);
+            activeindex = 0;
         }
 
         private void SkapaMC()
         {
-            throw new NotImplementedException();
+            LandVehicle temp = SkapaLandfordon("Motorcycle", 2);
+            Console.WriteLine("Input brand:");
+            string brand = Console.ReadLine();
+            Console.WriteLine("Input category of bike:");
+            string cat = Console.ReadLine();
+            garage.Add(new Motorcycle(temp.REG_NR, temp.Color, temp.NumberofWheels, temp.ConstructionYear, temp.Mileage, temp.LicenseRequirement, brand, cat));
+            SetToMainMenu();
         }
 
         private void SkapaBuss()
         {
-            throw new NotImplementedException();
+            LandVehicle temp = SkapaLandfordon("Buss", 8);
+            Console.WriteLine("Input number of seats:");
+            int noseats = int.Parse(Console.ReadLine());
+            Console.WriteLine("Input line number:");
+            int line = int.Parse(Console.ReadLine());
+            garage.Add(new Buss(temp.REG_NR, temp.Color, temp.NumberofWheels, temp.ConstructionYear, temp.Mileage, temp.LicenseRequirement, noseats, line));
+            SetToMainMenu();
+        }
+
+        private LandVehicle SkapaLandfordon(string type, int nowheels)
+        {
+            Vehicle temp = SkapaGenerisktFordon(type, nowheels);
+            Console.WriteLine("Input mileage:");
+            int miles = int.Parse(Console.ReadLine());
+            Console.WriteLine("Input driver license requirement:");
+            string license = Console.ReadLine();
+            return new LandVehicle(type, temp.REG_NR, temp.Color, nowheels, temp.ConstructionYear, miles, license);
+        }
+
+        private Vehicle SkapaGenerisktFordon(string type, int nowheels)
+        {
+            Console.WriteLine("Input reg. no:");
+            string regnr = Console.ReadLine();
+            Console.WriteLine("Input color:");
+            string color = Console.ReadLine();
+            Console.WriteLine("Input construction year:");
+            int conyear = int.Parse(Console.ReadLine());
+            return new Vehicle(type, regnr, color, nowheels, conyear);
         }
 
         private void SkapaBat()
         {
-            throw new NotImplementedException();
+            Vehicle temp = SkapaGenerisktFordon("Boat", 0);
+            Console.WriteLine("Input buoyancy:");
+            int buoy = int.Parse(Console.ReadLine());
+            Console.WriteLine("Input length:");
+            int len = int.Parse(Console.ReadLine());
+            garage.Add(new Boat(temp.REG_NR, temp.Color, temp.NumberofWheels, temp.ConstructionYear, buoy, len));
+            SetToMainMenu();
         }
 
         private void SkapaBil()
         {
-            throw new NotImplementedException();
+            LandVehicle temp = SkapaLandfordon("Car", 4);
+            Console.WriteLine("Input baggage volume:");
+            double bagvol = double.Parse(Console.ReadLine());
+            Console.WriteLine("Input fuel type:");
+            string fuel = Console.ReadLine();
+            garage.Add(new Car(temp.REG_NR, temp.Color, temp.NumberofWheels, temp.ConstructionYear,temp.Mileage, temp.LicenseRequirement, bagvol, fuel));
+            SetToMainMenu();
         }
 
 
@@ -144,7 +206,12 @@ namespace KlasGarage.Objects.UIcomponents
 
         public void SkapaFordon()
         {
-
+            var query = from item in kommandolista
+                        where item.Category == "Skapa fordon"
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+            active = activeMenu.ElementAt(0);
+            activeindex = 0;
         }
 
         public void BytGarage()
