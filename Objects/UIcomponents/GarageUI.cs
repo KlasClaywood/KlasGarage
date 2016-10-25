@@ -11,6 +11,7 @@ namespace KlasGarage.Objects.UIcomponents
         private List<UIItem> kommandolista;
         private List<Garage<Vehicle>> garages;
         private Garage<Vehicle> garage;
+        private List<UIItem> activeMenu;
         private UIItem active;
         private int activeindex;
 
@@ -21,12 +22,50 @@ namespace KlasGarage.Objects.UIcomponents
             garages.Add(gar);
             garage = gar;
             kommandolista = new List<UIItem>();
-            if (kommandolista.Count() != 0)
-            {
+            kommandolista.Add(new UIItem("Lista fordon", "Huvudmeny", ListaFordon, 1));
+            kommandolista.Add(new UIItem("Skapa ett fordon", "Huvudmeny", SkapaFordon, 2));
+            kommandolista.Add(new UIItem("Byt garage", "Huvudmeny", BytGarage, 3));
+            kommandolista.Add(new UIItem("Sök på Regnr", "Huvudmeny", SokPaRegnr, 4));
+            kommandolista.Add(new UIItem("Sök på olika variabler", "Huvudmeny", SokPaOlikaVariabler, 5));
+            kommandolista.Add(new UIItem("Skapa bil", "Skapa fordon", SkapaBil, 1));
+            kommandolista.Add(new UIItem("Skapa båt", "Skapa fordon", SkapaBat, 2));
+            kommandolista.Add(new UIItem("Skapa buss", "Skapa fordon", SkapaBuss, 3));
+            kommandolista.Add(new UIItem("Skapa motorcykel", "Skapa fordon", SkapaMC, 4));
+            kommandolista.Add(new UIItem("Skapa flygplan", "Skapa fordon", SkapaFlygplan, 5));
+            var query = from item in kommandolista
+                         where item.Category == "Huvudmeny"
+                         orderby item.ID
+                         select item;
+            activeMenu = query.ToList<UIItem>();
                 
-                active = kommandolista.ElementAt(0);
-            }
+            active = activeMenu.ElementAt(0);
+            
             activeindex = 0;
+        }
+
+        private void SkapaFlygplan()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SkapaMC()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SkapaBuss()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SkapaBat()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SkapaBil()
+        {
+            throw new NotImplementedException();
         }
 
 
@@ -38,7 +77,7 @@ namespace KlasGarage.Objects.UIcomponents
             {
                 Console.WriteLine(argument);
             }
-            foreach (UIItem punkt in kommandolista)
+            foreach (UIItem punkt in activeMenu)
             {
                 if (punkt == active)
                 {
@@ -62,12 +101,12 @@ namespace KlasGarage.Objects.UIcomponents
                     }
                     else
                     {
-                        activeindex = kommandolista.Count - 1;
+                        activeindex = activeMenu.Count - 1;
                     }
-                    active = kommandolista.ElementAt(activeindex);
+                    active = activeMenu.ElementAt(activeindex);
                     break;
                 case ConsoleKey.DownArrow:
-                    if (activeindex < kommandolista.Count - 1)
+                    if (activeindex < activeMenu.Count - 1)
                     {
                         activeindex += 1;  
                     }
@@ -75,9 +114,10 @@ namespace KlasGarage.Objects.UIcomponents
                     {
                         activeindex = 0;
                     }
-                    active = kommandolista.ElementAt(activeindex);
+                    active = activeMenu.ElementAt(activeindex);
                     break;
                 case ConsoleKey.Enter:
+                    Console.Clear();
                     active.Invoke();
                     //avsluta = true;
                     break;
@@ -90,17 +130,7 @@ namespace KlasGarage.Objects.UIcomponents
             return !avsluta;
         }
 
-        public void SetToMainMenu()
-        {
-            kommandolista.Clear();
-            kommandolista.Add(new UIItem("Lista fordon", ListaFordon));
-            kommandolista.Add(new UIItem("Skapa ett fordon", SkapaFordon));
-            kommandolista.Add(new UIItem("Byt garage", BytGarage));
-            kommandolista.Add(new UIItem("Sök på Regnr", SokPaRegnr));
-            kommandolista.Add(new UIItem("Sök på olika variabler", SokPaOlikaVariabler));
-            active = kommandolista.ElementAt(0);
-            activeindex = 0;
-        }
+
 
         public void ListaFordon()
         {
@@ -124,12 +154,21 @@ namespace KlasGarage.Objects.UIcomponents
 
         public void SokPaRegnr()
         {
-
+            
+            string reg = Console.ReadLine();
+            var query = from vehicle in garage
+                        where vehicle.REG_NR.Contains(reg)
+                        select vehicle;
+            foreach (Vehicle vehicle in query)
+            {
+                Console.WriteLine(vehicle);
+            }
+            Console.ReadKey();
         }
 
         public void SokPaOlikaVariabler()
         {
-
+            
         }
     }
 }

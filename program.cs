@@ -44,7 +44,7 @@ namespace KlasGarage
             Garage<Vehicle> GreatGarage = new Garage<Vehicle>("Klas Garage", 50);
             FillGarage(GreatGarage);
             GarageUI garageui = new GarageUI(GreatGarage);
-            garageui.SetToMainMenu();
+            
             while (garageui.RunMenu())
             {
 

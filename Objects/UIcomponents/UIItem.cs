@@ -9,13 +9,16 @@ namespace KlasGarage.Objects.UIcomponents
     {
         public string Command { get; private set; }
         private Action kommando;
+        public string Category { get; private set; }
+        public int ID { get; private set; }
         
  
-        public UIItem (string com, Action kom)
+        public UIItem (string com, string cat, Action kom, int id)
         {
             Command = com;
             kommando = kom;
-            
+            Category = cat;
+            ID = id;
         }
         public void Invoke()
         {
