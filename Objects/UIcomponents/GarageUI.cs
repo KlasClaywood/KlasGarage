@@ -7,6 +7,7 @@ namespace KlasGarage.Objects.UIcomponents
 {
     class GarageUI
     {
+        private string[] arguments;
         private List<UIItem> kommandolista;
         private List<Garage<Vehicle>> garages;
         private Garage<Vehicle> garage;
@@ -15,6 +16,7 @@ namespace KlasGarage.Objects.UIcomponents
 
         public GarageUI(Garage<Vehicle> gar)
         {
+            arguments = new string[0];
             garages = new List<Garage<Vehicle>>();
             garages.Add(gar);
             garage = gar;
@@ -32,6 +34,10 @@ namespace KlasGarage.Objects.UIcomponents
         {
             Console.Clear();
             bool avsluta = false;
+            foreach (string argument in arguments)
+            {
+                Console.WriteLine(argument);
+            }
             foreach (UIItem punkt in kommandolista)
             {
                 if (punkt == active)
