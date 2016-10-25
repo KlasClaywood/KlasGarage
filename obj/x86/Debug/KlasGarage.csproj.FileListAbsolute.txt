@@ -1,0 +1,5 @@
+C:\Users\elev\Source\Repos\KlasGarage\bin\Debug\ConsoleApplication.exe
+C:\Users\elev\Source\Repos\KlasGarage\bin\Debug\ConsoleApplication.pdb
+C:\Users\elev\Source\Repos\KlasGarage\obj\x86\Debug\KlasGarage.csprojResolveAssemblyReference.cache
+C:\Users\elev\Source\Repos\KlasGarage\obj\x86\Debug\ConsoleApplication.exe
+C:\Users\elev\Source\Repos\KlasGarage\obj\x86\Debug\ConsoleApplication.pdb
