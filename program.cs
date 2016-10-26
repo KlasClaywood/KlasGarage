@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using KlasGarage.Objects;
 using KlasGarage.Objects.UIcomponents;
+using System.IO;
 
 namespace KlasGarage
 {
@@ -43,13 +44,15 @@ namespace KlasGarage
         {
             Garage<Vehicle> GreatGarage = new Garage<Vehicle>("Klas Garage", 50);
             FillGarage(GreatGarage);
-            GarageUI garageui = new GarageUI(GreatGarage);
+            List<Garage<Vehicle>> AllGarages = new List<Garage<Vehicle>>();
+            AllGarages.Add(GreatGarage);
+            GarageUI garageui = new GarageUI(AllGarages);
             Console.WindowWidth = 90;
             while (garageui.RunMenu())
             {
 
             }
-
+            
             /*
             foreach (Vehicle fordon in GreatGarage)
             {

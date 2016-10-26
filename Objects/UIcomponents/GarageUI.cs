@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq; 
 
 namespace KlasGarage.Objects.UIcomponents
 {
@@ -15,12 +16,12 @@ namespace KlasGarage.Objects.UIcomponents
         private UIItem active;
         private int activeindex;
 
-        public GarageUI(Garage<Vehicle> gar)
+        public GarageUI(List<Garage<Vehicle>> gar)
         {
             arguments = new string[0];
-            garages = new List<Garage<Vehicle>>();
-            garages.Add(gar);
-            garage = gar;
+            garages = gar;
+            
+            garage = garages.First();
             kommandolista = new List<UIItem>();
             kommandolista.Add(new UIItem("Lista fordon", "Huvudmeny", ListaFordon, 1));
             kommandolista.Add(new UIItem("Skapa ett fordon", "Huvudmeny", SkapaFordon, 2));
@@ -28,6 +29,7 @@ namespace KlasGarage.Objects.UIcomponents
             kommandolista.Add(new UIItem("Byt garage", "Huvudmeny", BytGarage, 3));
             kommandolista.Add(new UIItem("Sök på Regnr", "Huvudmeny", SokPaRegnr, 4));
             kommandolista.Add(new UIItem("Sök på olika variabler", "Huvudmeny", SokPaOlikaVariabler, 5));
+            kommandolista.Add(new UIItem("Spara till hårddisken", "Huvudmeny", SparaTillDisk, 6));
             kommandolista.Add(new UIItem("Skapa bil", "Skapa fordon", SkapaBil, 1));
             kommandolista.Add(new UIItem("Skapa båt", "Skapa fordon", SkapaBat, 2));
             kommandolista.Add(new UIItem("Skapa buss", "Skapa fordon", SkapaBuss, 3));
@@ -44,6 +46,71 @@ namespace KlasGarage.Objects.UIcomponents
             active = activeMenu.ElementAt(0);
             
             activeindex = 0;
+        }
+
+        private void SparaTillDisk()
+        {
+            var document = new XDocument();
+            var allagarage = new XElement("Garages");
+            foreach (var gar in garages)
+            {
+                var garra = new XElement("Garage");
+                garra.Add(new XAttribute("Name", gar.Name));
+                garra.Add(new XAttribute("Capacity", gar.Max));
+                foreach (var fordon in garage)
+                {
+                    var reg = new XElement("REG_NR", fordon.REG_NR);
+                    var col = new XElement("Color", fordon.Color);
+                    var nowhels = new XElement("NumberofWheels", fordon.NumberofWheels);
+                    var conyear = new XElement("ConstructionYear", fordon.ConstructionYear);
+                    if (fordon is LandVehicle)
+                    {
+                        LandVehicle landvehicle = fordon as LandVehicle;
+                        var mil = new XElement("Mileage", landvehicle.Mileage);
+                        var lic = new XElement("LicenseRequirement", landvehicle.LicenseRequirement);
+                        if (fordon is Buss)
+                        {
+                            Buss buss = fordon as Buss;
+                            var noseats = new XElement("NumberofSeats", buss.NumberofSeats);
+                            var line = new XElement("Line", buss.Line);
+                            garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, mil, lic, noseats, line));
+                        }
+                        else if (fordon is Car)
+                        {
+                            Car car = fordon as Car;
+                            var bagvol = new XElement("BaggageVolume", car.BaggageVolume);
+                            var fuel = new XElement("FuelType", car.FuelType);
+                            garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, mil, lic, bagvol, fuel));
+                        }
+                        else if (fordon is Motorcycle)
+                        {
+                            Motorcycle motorcycle = fordon as Motorcycle;
+                            var brand = new XElement("Brand", motorcycle.Brand);
+                            var cat = new XElement("Category", motorcycle.Category);
+                            garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, mil, lic, brand, cat));
+                        }
+                    }
+                    else if (fordon is Boat)
+                    {
+                        Boat boat = fordon as Boat;
+                        var buoy = new XElement("Buoyancy", boat.Buoyancy);
+                        var len = new XElement("Length", boat.Length);
+                        garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, buoy, len));
+                    }
+                    else if(fordon is Airplane)
+                    {
+                        Airplane airplane = fordon as Airplane;
+                        var max = new XElement("MaxAltitude", airplane.MaxAltitude);
+                        var line = new XElement("AirLine", airplane.AirLine);
+                        garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, max, line));
+                    }
+                    var ford = new XElement(fordon.Type);
+                    garra.Add(ford);
+                }
+                allagarage.Add(garra);
+            }
+            document.Add(allagarage);
+            document.Save("vehicles.xml");
         }
 
         private void TaBortFordon()
