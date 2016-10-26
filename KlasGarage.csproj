@@ -71,6 +71,7 @@
     <None Include=".git\objects\pack\pack-6ecbc836c7e28600e2b7e83460020810d0d7afff.pack" />
     <None Include=".git\refs\heads\master" />
     <None Include=".git\refs\remotes\origin\master" />
+    <None Include="garages.csv" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +113,10 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\vehicles.xml" />
+    <Content Include="records.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
