@@ -23,7 +23,7 @@ namespace KlasGarage.Objects
         }
         public override string ToString()
         {
-            return String.Format("{0, -11}: {1,-6} {2,-6} {3, 2} {4, 4}", Type, REG_NR, Color, NumberofWheels, ConstructionYear);
+            return String.Format("{0, -11}: {1,-6} {2,-6} {3, 5} {4, 4}", Type, REG_NR, Color, NumberofWheels, ConstructionYear);
         }
     }
 }

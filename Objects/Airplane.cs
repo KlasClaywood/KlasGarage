@@ -16,7 +16,7 @@ namespace KlasGarage.Objects
         }
         public override string ToString()
         {
-            return base.ToString() + String.Format(" {0, 6} {1, -25}", MaxAltitude, AirLine);
+            return base.ToString() + String.Format("   {0, 6} {1, -25}", MaxAltitude, AirLine);
         }
     }
 }

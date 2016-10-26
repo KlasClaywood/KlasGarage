@@ -196,12 +196,62 @@ namespace KlasGarage.Objects.UIcomponents
 
         public void ListaFordon()
         {
+            var fordonlista = from fordon in garage
+                              select fordon;
             Console.Clear();
-            foreach (Vehicle fordon in garage)
+            Vehicle tmp = null;
+            foreach (Vehicle fordon in fordonlista)
             {
+                if (tmp == null || fordon.Type != tmp.Type)
+                {
+                    PrintHeader(fordon.Type);
+                    tmp = fordon;
+                }
                 Console.WriteLine(fordon);
             }
             Console.ReadKey();
+        }
+
+        private void PrintHeader(string type)
+        {
+            switch (type)
+            {
+                case "Car":
+                    Console.WriteLine();
+                    Console.WriteLine("{0, -12} {1,-6} {2,-6} {3, 5} {4, 4} {5, 6} {6, 7} {7, -9}    {8, -6}", "Type", "REG_NR", "Color", "Wheel", "Year", "Miles", "L. Req.", "Baggage", "Fuel");
+                    Console.WriteLine("==============================================================================");
+                    break;
+                case "Buss":
+                    
+                    Console.WriteLine();
+                    Console.WriteLine("{0, -12} {1,-6} {2,-6} {3, 5} {4, 4} {5, 6} {6, 7} {7, -5}    {8, -4}", "Type", "REG_NR", "Color", "Wheel", "Year", "Miles", "L. Req.", "Seats", "Line");
+                    Console.WriteLine("==============================================================================");
+                    
+                    break;
+                case "Airplane":
+                    
+                    Console.WriteLine();
+                    Console.WriteLine("{0, -12} {1,-6} {2,-6} {3, 5} {4, 4} {5, 8} {6, 7} ", "Type", "REG_NR", "Color", "Wheel", "Year", "Altitude", "Airline");
+                    Console.WriteLine("==============================================================================");
+                    
+                    break;
+                case "Motorcycle":
+                    
+                    Console.WriteLine();
+                    Console.WriteLine("{0, -12} {1,-6} {2,-6} {3, 5} {4, 4} {5, 6} {6, 7} {7, -16} {8, -9}", "Type", "REG_NR", "Color", "Wheel", "Year", "Miles", "License", "Brand", "Category");
+                    Console.WriteLine("==============================================================================");
+                    
+                    break;
+                case "Boat":
+                    
+                    Console.WriteLine();
+                    Console.WriteLine("{0, -12} {1,-6} {2,-6} {3, 5} {4, 4} {5, 9} {6, 7}", "Type", "REG_NR", "Color", "Wheel", "Year", "Buoyancy", "Length");
+                    Console.WriteLine("==============================================================================");
+                    
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void SkapaFordon()

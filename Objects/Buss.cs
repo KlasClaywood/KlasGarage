@@ -16,7 +16,7 @@ namespace KlasGarage.Objects
         }
         public override string ToString()
         {
-            return base.ToString() + String.Format(" {0, 3} {1, 4}", NumberofSeats, Line);
+            return base.ToString() + String.Format("   {0, 3}    {1, 4}", NumberofSeats, Line);
         }
     }
 }

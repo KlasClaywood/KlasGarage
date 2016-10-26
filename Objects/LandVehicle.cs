@@ -16,7 +16,7 @@ namespace KlasGarage.Objects
         }
         public override string ToString()
         {
-            return base.ToString() + String.Format(" {0, 9} {1, -3}", Mileage, LicenseRequirement);
+            return base.ToString() + String.Format(" {0, 6} {1, -4}   ", Mileage, LicenseRequirement);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace KlasGarage.Objects
         }
         public override string ToString()
         {
-            return base.ToString() + String.Format(" {0, 4} {1, -9}", BaggageVolume, FuelType);
+            return base.ToString() + String.Format("    {0, 4:0.00}      {1, -9}", BaggageVolume, FuelType);
         }
     }
 }
