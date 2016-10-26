@@ -37,6 +37,14 @@ namespace KlasGarage.Objects.UIcomponents
             kommandolista.Add(new UIItem("Skapa flygplan", "Skapa fordon", SkapaFlygplan, 5));
             kommandolista.Add(new UIItem("Skapa nytt garage", "Byt garage", SkapaGarage, 1));
             kommandolista.Add(new UIItem("Välj garage", "Byt garage", ValjGarage, 2));
+            kommandolista.Add(new UIItem("REG_NR", "Sök på olika variabler"," ", SokFras, 1));
+            kommandolista.Add(new UIItem("Color", "Sök på olika variabler", " ", SokFras, 1));
+            kommandolista.Add(new UIItem("Construction year", "Sök på olika variabler", " ", SokFras, 1));
+            kommandolista.Add(new UIItem("Number of wheels", "Sök på olika variabler", " ", SokFras, 1));
+            kommandolista.Add(new UIItem("Type", "Sök på olika variabler", " ", SokFras, 1));
+            kommandolista.Add(new UIItem("Mileage", "Sök på olika variabler", " ", SokFras, 1));
+            kommandolista.Add(new UIItem("License Requirement", "Sök på olika variabler", " ", SokFras, 1));
+            kommandolista.Add(new UIItem("Sök", "Sök på olika variabler", SokMig, 2));
             var query = from item in kommandolista
                          where item.Category == "Huvudmeny"
                          orderby item.ID
@@ -47,6 +55,10 @@ namespace KlasGarage.Objects.UIcomponents
             
             activeindex = 0;
         }
+
+       
+
+        
 
         private void SparaTillDisk()
         {
@@ -332,12 +344,12 @@ namespace KlasGarage.Objects.UIcomponents
                 {
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
-                    Console.WriteLine(punkt.Command);
+                    Console.WriteLine(punkt.Command + ((punkt.Additional != "")? ": " + punkt.Additional : ""));
                     Console.ResetColor();
                 }
                 else
                 {
-                    Console.WriteLine(punkt.Command);
+                    Console.WriteLine(punkt.Command + ((punkt.Additional != "") ? ": " + punkt.Additional : ""));
                 }
             }
             ConsoleKeyInfo svar = Console.ReadKey();
@@ -477,7 +489,38 @@ namespace KlasGarage.Objects.UIcomponents
 
         public void SokPaOlikaVariabler()
         {
-            
+            var query = from item in kommandolista
+                        where item.Category == "Sök på olika variabler"
+                        orderby item.ID
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+            active = activeMenu.First();
+            activeindex = 0;
+        }
+
+        private void SokFras()
+        {
+            active.Additional = Console.ReadLine();
+        }
+
+        private void SokMig()
+        {
+            var query = from item in kommandolista
+                        where item.Category == "Sök på olika variabler" && item.Additional != " "
+                        orderby item.ID
+                        select item;
+            List<UIItem> sokFrasLista = query.ToList<UIItem>();
+            var result = from item in garage
+                         select item;
+            foreach (var item in sokFrasLista)
+            {
+                switch (item.Command)
+                {
+                    case "REG_NR":
+
+                }
+            }
+
         }
     }
 }
