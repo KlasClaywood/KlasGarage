@@ -11,6 +11,7 @@ namespace KlasGarage.Objects.UIcomponents
         private Action kommando;
         public string Category { get; private set; }
         public int ID { get; private set; }
+        public string Additional { get; set; }
         
  
         public UIItem (string com, string cat, Action kom, int id)
@@ -19,6 +20,15 @@ namespace KlasGarage.Objects.UIcomponents
             kommando = kom;
             Category = cat;
             ID = id;
+            Additional = "";
+        }
+        public UIItem(string com, string cat, string additional, Action kom, int id)
+        {
+            Command = com;
+            kommando = kom;
+            Category = cat;
+            ID = id;
+            Additional = additional;
         }
         public void Invoke()
         {

@@ -41,9 +41,9 @@ namespace KlasGarage.Objects.UIcomponents
             kommandolista.Add(new UIItem("Color", "Sök på olika variabler", " ", SokFras, 1));
             kommandolista.Add(new UIItem("Construction year", "Sök på olika variabler", " ", SokFras, 1));
             kommandolista.Add(new UIItem("Number of wheels", "Sök på olika variabler", " ", SokFras, 1));
-            kommandolista.Add(new UIItem("Type", "Sök på olika variabler", " ", SokFras, 1));
+            kommandolista.Add(new UIItem("Type", "Sök på olika variabler", " ", SokFras, 0));
             kommandolista.Add(new UIItem("Mileage", "Sök på olika variabler", " ", SokFras, 1));
-            kommandolista.Add(new UIItem("License Requirement", "Sök på olika variabler", " ", SokFras, 1));
+            kommandolista.Add(new UIItem("License requirement", "Sök på olika variabler", " ", SokFras, 1));
             kommandolista.Add(new UIItem("Sök", "Sök på olika variabler", SokMig, 2));
             var query = from item in kommandolista
                          where item.Category == "Huvudmeny"
@@ -129,17 +129,17 @@ namespace KlasGarage.Objects.UIcomponents
             List<UIItem> tempmeny = new List<UIItem>();
             foreach (Vehicle fordon in garage)
             {
-                tempmeny.Add(new UIItem(fordon.Type + ":" + fordon.REG_NR, "TaBortMig", TaBortMig, 0));
+                tempmeny.Add(new UIItem(fordon.Type, "TaBortMig", fordon.REG_NR, TaBortMig, 0));
             }
-            activeMenu = tempmeny;
+            activeMenu = tempmeny.OrderBy(b => b.Command).ToList();
             active = activeMenu.First();
             activeindex = 0;
         }
 
         private void TaBortMig()
         {
-            string name = active.Command.Split(':').First();
-            string reg = active.Command.Split(':').Last();
+            string name = active.Command;
+            string reg = active.Additional;
             Vehicle bort = garage.Where(b => b.Type == name && b.REG_NR == reg).First();
 
             if (!garage.Remove(bort))
@@ -149,7 +149,7 @@ namespace KlasGarage.Objects.UIcomponents
             }
             else
             {
-                Console.WriteLine("Are you sure you want to remove {0} {1}? Type 'REMOVE' to continue");
+                Console.WriteLine("Are you sure you want to remove {0} {1}? Type 'REMOVE' to continue", name, reg);
                 string svar = Console.ReadLine();
                 if (svar == "REMOVE")
                 {
@@ -404,6 +404,10 @@ namespace KlasGarage.Objects.UIcomponents
         {
             Console.Clear();
             Vehicle tmp = null;
+            if (fordonlista.Count == 0)
+            {
+                Console.WriteLine("No results to your search");
+            }
             foreach (Vehicle fordon in fordonlista)
             {
                 if (tmp == null || fordon.Type != tmp.Type)
@@ -413,6 +417,7 @@ namespace KlasGarage.Objects.UIcomponents
                 }
                 Console.WriteLine(fordon);
             }
+            
             Console.ReadKey();
         }
 
@@ -500,27 +505,68 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void SokFras()
         {
-            active.Additional = Console.ReadLine();
+            Console.WriteLine("Input {0}", active.Command);
+            string svar = Console.ReadLine();
+            active.Additional = (svar == "")? " " : svar;
         }
 
         private void SokMig()
         {
             var query = from item in kommandolista
-                        where item.Category == "Sök på olika variabler" && item.Additional != " "
+                        where item.Category == "Sök på olika variabler" && !(item.Additional == " " || item.Additional == "")
                         orderby item.ID
                         select item;
             List<UIItem> sokFrasLista = query.ToList<UIItem>();
-            var result = from item in garage
-                         select item;
+            var result1 = from fordon in garage
+                         select fordon;
+            List<Vehicle> fordonLista = result1.ToList<Vehicle>();
             foreach (var item in sokFrasLista)
             {
+                
                 switch (item.Command)
                 {
                     case "REG_NR":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b.REG_NR.Contains(item.Additional));
+                        break;
+                    case "Type":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b.Type.Contains(item.Additional));
+                        break;
+                    case "Color":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b.Color.Contains(item.Additional));
+                        break;
+                    case "Number of wheels":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b.NumberofWheels.Equals(int.Parse(item.Additional)));
+                        break;
+                    case "Construction year":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b.ConstructionYear.Equals(int.Parse(item.Additional)));
+                        break;
+                    case "Mileage":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b is LandVehicle && (b as LandVehicle).Mileage.Equals(int.Parse(item.Additional)));
+                        break;
+                    case "License requirement":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b is LandVehicle && (b as LandVehicle).LicenseRequirement.Contains(item.Additional));
+                        break;
+                    case "Brand":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b is Motorcycle && (b as Motorcycle).Brand.Contains(item.Additional));
+                        break;
+                    case "Category":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b is Motorcycle && (b as Motorcycle).Category.Contains(item.Additional));
+                        break;
+                    case "Baggage volume":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b is Car && (b as Car).BaggageVolume.Equals(double.Parse(item.Additional)));
+                        break;
+                    case "Fuel type":
+                        result1 = garage.Where(b => fordonLista.Contains(b) && b is Car && (b as Car).FuelType.Contains(item.Additional));
+                        break;
+                    default:
+                        break;
 
                 }
+                fordonLista = result1.ToList<Vehicle>();
             }
-
+            
+            PrintaFordon(fordonLista);
+            SetToMainMenu();
         }
     }
 }
