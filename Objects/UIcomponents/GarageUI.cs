@@ -24,6 +24,7 @@ namespace KlasGarage.Objects.UIcomponents
             kommandolista = new List<UIItem>();
             kommandolista.Add(new UIItem("Lista fordon", "Huvudmeny", ListaFordon, 1));
             kommandolista.Add(new UIItem("Skapa ett fordon", "Huvudmeny", SkapaFordon, 2));
+            kommandolista.Add(new UIItem("Ta bort ett fordon", "Huvudmeny", TaBortFordon, 3));
             kommandolista.Add(new UIItem("Byt garage", "Huvudmeny", BytGarage, 3));
             kommandolista.Add(new UIItem("Sök på Regnr", "Huvudmeny", SokPaRegnr, 4));
             kommandolista.Add(new UIItem("Sök på olika variabler", "Huvudmeny", SokPaOlikaVariabler, 5));
@@ -32,6 +33,8 @@ namespace KlasGarage.Objects.UIcomponents
             kommandolista.Add(new UIItem("Skapa buss", "Skapa fordon", SkapaBuss, 3));
             kommandolista.Add(new UIItem("Skapa motorcykel", "Skapa fordon", SkapaMC, 4));
             kommandolista.Add(new UIItem("Skapa flygplan", "Skapa fordon", SkapaFlygplan, 5));
+            kommandolista.Add(new UIItem("Skapa nytt garage", "Byt garage", SkapaGarage, 1));
+            kommandolista.Add(new UIItem("Välj garage", "Byt garage", ValjGarage, 2));
             var query = from item in kommandolista
                          where item.Category == "Huvudmeny"
                          orderby item.ID
@@ -43,11 +46,93 @@ namespace KlasGarage.Objects.UIcomponents
             activeindex = 0;
         }
 
+        private void TaBortFordon()
+        {
+            List<UIItem> tempmeny = new List<UIItem>();
+            foreach (Vehicle fordon in garage)
+            {
+                tempmeny.Add(new UIItem(fordon.Type + ":" + fordon.REG_NR, "TaBortMig", TaBortMig, 0));
+            }
+            activeMenu = tempmeny;
+            active = activeMenu.First();
+            activeindex = 0;
+        }
+
+        private void TaBortMig()
+        {
+            string name = active.Command.Split(':').First();
+            string reg = active.Command.Split(':').Last();
+            Vehicle bort = garage.Where(b => b.Type == name && b.REG_NR == reg).First();
+
+            if (!garage.Remove(bort))
+            {
+                Console.WriteLine("Could not remove {0} {1}", name, reg);
+
+            }
+            else
+            {
+                Console.WriteLine("Are you sure you want to remove {0} {1}? Type 'REMOVE' to continue");
+                string svar = Console.ReadLine();
+                if (svar == "REMOVE")
+                {
+                    Console.WriteLine("{0} {1} has been removed!", name, reg);
+                }
+                else
+                {
+                    garage.Add(bort);
+                }
+            }
+                Console.ReadKey();
+            SetToMainMenu();
+        }
+
+        private void ValjGarage()
+        {
+            List<UIItem> tempmeny = new List<UIItem>();
+            for (int i = 0; i < garages.Count(); i++)
+            {
+                tempmeny.Add(new UIItem(garages.ElementAt(i).Name, "Alla garage", AllaGarage, i + 1));
+            }
+            activeMenu = tempmeny;
+            activeindex = 0;
+            active = activeMenu.First();
+        }
+
+        private void AllaGarage()
+        {
+            var query = from garra in garages
+                        where garra.Name == active.Command
+                        select garra;
+            garage = query.First();
+            SetToMainMenu();
+        }
+
+        private void SkapaGarage()
+        {
+            Console.WriteLine("Input new garage name:");
+            string name = Console.ReadLine();
+            Console.WriteLine("Input new garage capacity:");
+            int max = 0;
+            while (!int.TryParse(Console.ReadLine(), out max))
+            { 
+                Console.Clear();
+                Console.WriteLine("Input an integer");
+            }
+            garage = new Garage<Vehicle>(name, max);
+            garages.Add(garage);
+            SetToMainMenu();
+        }
+
         private void SkapaFlygplan()
         {
             Vehicle temp = SkapaGenerisktFordon("Airplane", 3);
             Console.WriteLine("Input maximum altitude:");
-            int max = int.Parse(Console.ReadLine());
+            int max = 0;
+            while (!int.TryParse(Console.ReadLine(), out max))
+            {
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+                Console.WriteLine("Input an integer!");
+            }
             Console.WriteLine("Input airline name:");
             string airl = Console.ReadLine();
 
@@ -59,6 +144,7 @@ namespace KlasGarage.Objects.UIcomponents
         {
             var query = from item in kommandolista
                         where item.Category == "Huvudmeny"
+                        orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
             active = activeMenu.ElementAt(0);
@@ -80,9 +166,19 @@ namespace KlasGarage.Objects.UIcomponents
         {
             LandVehicle temp = SkapaLandfordon("Buss", 8);
             Console.WriteLine("Input number of seats:");
-            int noseats = int.Parse(Console.ReadLine());
+            int noseats = 0;
+            while (!int.TryParse(Console.ReadLine(), out noseats))
+            {
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+                Console.WriteLine("Input an integer!");
+            }
             Console.WriteLine("Input line number:");
-            int line = int.Parse(Console.ReadLine());
+            int line = 0;
+            while (!int.TryParse(Console.ReadLine(), out line))
+            {
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+                Console.WriteLine("Input an integer!");
+            }
             garage.Add(new Buss(temp.REG_NR, temp.Color, temp.NumberofWheels, temp.ConstructionYear, temp.Mileage, temp.LicenseRequirement, noseats, line));
             SetToMainMenu();
         }
@@ -91,7 +187,12 @@ namespace KlasGarage.Objects.UIcomponents
         {
             Vehicle temp = SkapaGenerisktFordon(type, nowheels);
             Console.WriteLine("Input mileage:");
-            int miles = int.Parse(Console.ReadLine());
+            int miles = 0;
+            while (!int.TryParse(Console.ReadLine(), out miles))
+            {
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+                Console.WriteLine("Input an integer!");
+            }
             Console.WriteLine("Input driver license requirement:");
             string license = Console.ReadLine();
             return new LandVehicle(type, temp.REG_NR, temp.Color, nowheels, temp.ConstructionYear, miles, license);
@@ -104,7 +205,12 @@ namespace KlasGarage.Objects.UIcomponents
             Console.WriteLine("Input color:");
             string color = Console.ReadLine();
             Console.WriteLine("Input construction year:");
-            int conyear = int.Parse(Console.ReadLine());
+            int conyear = 0;
+            while (!int.TryParse(Console.ReadLine(), out conyear))
+            {
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+                Console.WriteLine("Input an integer!");
+            }
             return new Vehicle(type, regnr, color, nowheels, conyear);
         }
 
@@ -112,9 +218,19 @@ namespace KlasGarage.Objects.UIcomponents
         {
             Vehicle temp = SkapaGenerisktFordon("Boat", 0);
             Console.WriteLine("Input buoyancy:");
-            int buoy = int.Parse(Console.ReadLine());
+            int buoy = 0;
+            while (!int.TryParse(Console.ReadLine(), out buoy))
+            {
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+                Console.WriteLine("Input an integer!");
+            }
             Console.WriteLine("Input length:");
-            int len = int.Parse(Console.ReadLine());
+            int len = 0;
+            while (!int.TryParse(Console.ReadLine(), out len))
+            {
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+                Console.WriteLine("Input an integer!");
+            }
             garage.Add(new Boat(temp.REG_NR, temp.Color, temp.NumberofWheels, temp.ConstructionYear, buoy, len));
             SetToMainMenu();
         }
@@ -123,7 +239,12 @@ namespace KlasGarage.Objects.UIcomponents
         {
             LandVehicle temp = SkapaLandfordon("Car", 4);
             Console.WriteLine("Input baggage volume:");
-            double bagvol = double.Parse(Console.ReadLine());
+            double bagvol = 0;
+            while (double.TryParse(Console.ReadLine(), out bagvol))
+            {
+                Console.SetCursorPosition(0, Console.CursorTop -1);
+                Console.WriteLine("Input a double!");
+            }
             Console.WriteLine("Input fuel type:");
             string fuel = Console.ReadLine();
             garage.Add(new Car(temp.REG_NR, temp.Color, temp.NumberofWheels, temp.ConstructionYear,temp.Mileage, temp.LicenseRequirement, bagvol, fuel));
@@ -196,8 +317,13 @@ namespace KlasGarage.Objects.UIcomponents
 
         public void ListaFordon()
         {
-            var fordonlista = from fordon in garage
-                              select fordon;
+            var fordonlista = garage.OrderBy(f => f.Type).ToList<Vehicle>();
+            
+            PrintaFordon(fordonlista);
+        }
+
+        public void PrintaFordon(List<Vehicle> fordonlista)
+        {
             Console.Clear();
             Vehicle tmp = null;
             foreach (Vehicle fordon in fordonlista)
@@ -258,29 +384,29 @@ namespace KlasGarage.Objects.UIcomponents
         {
             var query = from item in kommandolista
                         where item.Category == "Skapa fordon"
+                        orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
-            active = activeMenu.ElementAt(0);
+            active = activeMenu.First();
             activeindex = 0;
         }
 
         public void BytGarage()
         {
-            
+            var query = from item in kommandolista
+                        where item.Category == "Byt garage"
+                        orderby item.ID
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+            active = activeMenu.First();
+            activeindex = 0;
         }
 
         public void SokPaRegnr()
         {
-            
             string reg = Console.ReadLine();
-            var query = from vehicle in garage
-                        where vehicle.REG_NR.Contains(reg)
-                        select vehicle;
-            foreach (Vehicle vehicle in query)
-            {
-                Console.WriteLine(vehicle);
-            }
-            Console.ReadKey();
+            var query = garage.Where(b => b.REG_NR.Contains(reg)).OrderBy(b => b.Type).ToList<Vehicle>();
+            PrintaFordon(query);
         }
 
         public void SokPaOlikaVariabler()
