@@ -1,155 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Garages>
   <Garage Name="Klas Garage" Capacity="50">
-    <Boat>
-      <REG_NR>RAA938</REG_NR>
-      <Color>Silver</Color>
-      <NumberofWheels>0</NumberofWheels>
-      <ConstructionYear>1970</ConstructionYear>
-      <Buoyancy>14</Buoyancy>
-      <Length>15</Length>
-    </Boat>
-    <Boat />
-    <Boat>
-      <REG_NR>RAB938</REG_NR>
-      <Color>Blue</Color>
-      <NumberofWheels>0</NumberofWheels>
-      <ConstructionYear>1971</ConstructionYear>
-      <Buoyancy>13</Buoyancy>
-      <Length>33</Length>
-    </Boat>
-    <Boat />
-    <Boat>
-      <REG_NR>RBA938</REG_NR>
-      <Color>White</Color>
-      <NumberofWheels>0</NumberofWheels>
-      <ConstructionYear>1972</ConstructionYear>
-      <Buoyancy>10</Buoyancy>
-      <Length>64</Length>
-    </Boat>
-    <Boat />
-    <Boat>
-      <REG_NR>RBB938</REG_NR>
-      <Color>Black</Color>
-      <NumberofWheels>0</NumberofWheels>
-      <ConstructionYear>1973</ConstructionYear>
-      <Buoyancy>20</Buoyancy>
-      <Length>13</Length>
-    </Boat>
-    <Boat />
-    <Airplane>
-      <REG_NR>AIRBIG</REG_NR>
-      <Color>White</Color>
-      <NumberofWheels>3</NumberofWheels>
-      <ConstructionYear>2013</ConstructionYear>
-      <MaxAltitude>20000</MaxAltitude>
-      <AirLine>Norwegian</AirLine>
-    </Airplane>
-    <Airplane />
-    <Airplane>
-      <REG_NR>AIRMED</REG_NR>
-      <Color>Blue</Color>
-      <NumberofWheels>3</NumberofWheels>
-      <ConstructionYear>2013</ConstructionYear>
-      <MaxAltitude>20000</MaxAltitude>
-      <AirLine>SAS</AirLine>
-    </Airplane>
-    <Airplane />
-    <Airplane>
-      <REG_NR>AIRSMA</REG_NR>
-      <Color>Red</Color>
-      <NumberofWheels>3</NumberofWheels>
-      <ConstructionYear>2013</ConstructionYear>
-      <MaxAltitude>20000</MaxAltitude>
-      <AirLine>American Airlines</AirLine>
-    </Airplane>
-    <Airplane />
-    <Airplane>
-      <REG_NR>AIRTIN</REG_NR>
-      <Color>White</Color>
-      <NumberofWheels>3</NumberofWheels>
-      <ConstructionYear>2013</ConstructionYear>
-      <MaxAltitude>20000</MaxAltitude>
-      <AirLine>RyanAir</AirLine>
-    </Airplane>
-    <Airplane />
-    <Buss>
-      <REG_NR>BUS123</REG_NR>
-      <Color>Blue</Color>
-      <NumberofWheels>8</NumberofWheels>
-      <ConstructionYear>2000</ConstructionYear>
-      <Mileage>13000</Mileage>
-      <LicenseRequirement>B+</LicenseRequirement>
-      <NumberofSeats>52</NumberofSeats>
-      <Line>208</Line>
-    </Buss>
-    <Buss />
-    <Buss>
-      <REG_NR>BUS124</REG_NR>
-      <Color>Blue</Color>
-      <NumberofWheels>8</NumberofWheels>
-      <ConstructionYear>2000</ConstructionYear>
-      <Mileage>13000</Mileage>
-      <LicenseRequirement>B+</LicenseRequirement>
-      <NumberofSeats>53</NumberofSeats>
-      <Line>708</Line>
-    </Buss>
-    <Buss />
-    <Buss>
-      <REG_NR>BUS125</REG_NR>
-      <Color>Blue</Color>
-      <NumberofWheels>8</NumberofWheels>
-      <ConstructionYear>2000</ConstructionYear>
-      <Mileage>13000</Mileage>
-      <LicenseRequirement>B+</LicenseRequirement>
-      <NumberofSeats>64</NumberofSeats>
-      <Line>608</Line>
-    </Buss>
-    <Buss />
-    <Buss>
-      <REG_NR>BUS126</REG_NR>
-      <Color>Tan</Color>
-      <NumberofWheels>8</NumberofWheels>
-      <ConstructionYear>2000</ConstructionYear>
-      <Mileage>13000</Mileage>
-      <LicenseRequirement>B+</LicenseRequirement>
-      <NumberofSeats>64</NumberofSeats>
-      <Line>508</Line>
-    </Buss>
-    <Buss />
-    <Buss>
-      <REG_NR>BUS127</REG_NR>
-      <Color>Blue</Color>
-      <NumberofWheels>8</NumberofWheels>
-      <ConstructionYear>2000</ConstructionYear>
-      <Mileage>13000</Mileage>
-      <LicenseRequirement>B+</LicenseRequirement>
-      <NumberofSeats>64</NumberofSeats>
-      <Line>408</Line>
-    </Buss>
-    <Buss />
-    <Buss>
-      <REG_NR>BUS128</REG_NR>
-      <Color>Blue</Color>
-      <NumberofWheels>8</NumberofWheels>
-      <ConstructionYear>2000</ConstructionYear>
-      <Mileage>13000</Mileage>
-      <LicenseRequirement>B+</LicenseRequirement>
-      <NumberofSeats>52</NumberofSeats>
-      <Line>308</Line>
-    </Buss>
-    <Buss />
-    <Buss>
-      <REG_NR>BUS129</REG_NR>
-      <Color>Blue</Color>
-      <NumberofWheels>8</NumberofWheels>
-      <ConstructionYear>2000</ConstructionYear>
-      <Mileage>13000</Mileage>
-      <LicenseRequirement>B+</LicenseRequirement>
-      <NumberofSeats>52</NumberofSeats>
-      <Line>211</Line>
-    </Buss>
-    <Buss />
     <Car>
       <REG_NR>XGC964</REG_NR>
       <Color>Silver</Color>
@@ -160,7 +11,6 @@
       <BaggageVolume>1.5</BaggageVolume>
       <FuelType>FlexiFuel</FuelType>
     </Car>
-    <Car />
     <Car>
       <REG_NR>CMJ750</REG_NR>
       <Color>Black</Color>
@@ -171,7 +21,6 @@
       <BaggageVolume>1.2</BaggageVolume>
       <FuelType>Diesel</FuelType>
     </Car>
-    <Car />
     <Car>
       <REG_NR>UJZ493</REG_NR>
       <Color>Blue</Color>
@@ -182,7 +31,6 @@
       <BaggageVolume>1.24</BaggageVolume>
       <FuelType>Bensin</FuelType>
     </Car>
-    <Car />
     <Car>
       <REG_NR>AAB112</REG_NR>
       <Color>Red</Color>
@@ -193,7 +41,6 @@
       <BaggageVolume>1.1</BaggageVolume>
       <FuelType>Gasoline</FuelType>
     </Car>
-    <Car />
     <Car>
       <REG_NR>ABB122</REG_NR>
       <Color>Green</Color>
@@ -204,7 +51,6 @@
       <BaggageVolume>1.9</BaggageVolume>
       <FuelType>Guzzoline</FuelType>
     </Car>
-    <Car />
     <Car>
       <REG_NR>BBB222</REG_NR>
       <Color>White</Color>
@@ -215,7 +61,108 @@
       <BaggageVolume>0.8</BaggageVolume>
       <FuelType>Electicity</FuelType>
     </Car>
-    <Car />
+    <Buss>
+      <REG_NR>BUS123</REG_NR>
+      <Color>Blue</Color>
+      <NumberofWheels>8</NumberofWheels>
+      <ConstructionYear>2000</ConstructionYear>
+      <Mileage>13000</Mileage>
+      <LicenseRequirement>B+</LicenseRequirement>
+      <NumberofSeats>52</NumberofSeats>
+      <Line>208</Line>
+    </Buss>
+    <Buss>
+      <REG_NR>BUS124</REG_NR>
+      <Color>Blue</Color>
+      <NumberofWheels>8</NumberofWheels>
+      <ConstructionYear>2000</ConstructionYear>
+      <Mileage>13000</Mileage>
+      <LicenseRequirement>B+</LicenseRequirement>
+      <NumberofSeats>53</NumberofSeats>
+      <Line>708</Line>
+    </Buss>
+    <Buss>
+      <REG_NR>BUS125</REG_NR>
+      <Color>Blue</Color>
+      <NumberofWheels>8</NumberofWheels>
+      <ConstructionYear>2000</ConstructionYear>
+      <Mileage>13000</Mileage>
+      <LicenseRequirement>B+</LicenseRequirement>
+      <NumberofSeats>64</NumberofSeats>
+      <Line>608</Line>
+    </Buss>
+    <Buss>
+      <REG_NR>BUS126</REG_NR>
+      <Color>Tan</Color>
+      <NumberofWheels>8</NumberofWheels>
+      <ConstructionYear>2000</ConstructionYear>
+      <Mileage>13000</Mileage>
+      <LicenseRequirement>B+</LicenseRequirement>
+      <NumberofSeats>64</NumberofSeats>
+      <Line>508</Line>
+    </Buss>
+    <Buss>
+      <REG_NR>BUS127</REG_NR>
+      <Color>Blue</Color>
+      <NumberofWheels>8</NumberofWheels>
+      <ConstructionYear>2000</ConstructionYear>
+      <Mileage>13000</Mileage>
+      <LicenseRequirement>B+</LicenseRequirement>
+      <NumberofSeats>64</NumberofSeats>
+      <Line>408</Line>
+    </Buss>
+    <Buss>
+      <REG_NR>BUS128</REG_NR>
+      <Color>Blue</Color>
+      <NumberofWheels>8</NumberofWheels>
+      <ConstructionYear>2000</ConstructionYear>
+      <Mileage>13000</Mileage>
+      <LicenseRequirement>B+</LicenseRequirement>
+      <NumberofSeats>52</NumberofSeats>
+      <Line>308</Line>
+    </Buss>
+    <Buss>
+      <REG_NR>BUS129</REG_NR>
+      <Color>Blue</Color>
+      <NumberofWheels>8</NumberofWheels>
+      <ConstructionYear>2000</ConstructionYear>
+      <Mileage>13000</Mileage>
+      <LicenseRequirement>B+</LicenseRequirement>
+      <NumberofSeats>52</NumberofSeats>
+      <Line>211</Line>
+    </Buss>
+    <Airplane>
+      <REG_NR>AIRBIG</REG_NR>
+      <Color>White</Color>
+      <NumberofWheels>3</NumberofWheels>
+      <ConstructionYear>2013</ConstructionYear>
+      <MaxAltitude>20000</MaxAltitude>
+      <AirLine>Norwegian</AirLine>
+    </Airplane>
+    <Airplane>
+      <REG_NR>AIRMED</REG_NR>
+      <Color>Blue</Color>
+      <NumberofWheels>3</NumberofWheels>
+      <ConstructionYear>2013</ConstructionYear>
+      <MaxAltitude>20000</MaxAltitude>
+      <AirLine>SAS</AirLine>
+    </Airplane>
+    <Airplane>
+      <REG_NR>AIRSMA</REG_NR>
+      <Color>Red</Color>
+      <NumberofWheels>3</NumberofWheels>
+      <ConstructionYear>2013</ConstructionYear>
+      <MaxAltitude>20000</MaxAltitude>
+      <AirLine>American Airlines</AirLine>
+    </Airplane>
+    <Airplane>
+      <REG_NR>AIRTIN</REG_NR>
+      <Color>White</Color>
+      <NumberofWheels>3</NumberofWheels>
+      <ConstructionYear>2013</ConstructionYear>
+      <MaxAltitude>20000</MaxAltitude>
+      <AirLine>RyanAir</AirLine>
+    </Airplane>
     <Motorcycle>
       <REG_NR>TOI532</REG_NR>
       <Color>Black</Color>
@@ -226,7 +173,6 @@
       <Brand>Harley-Davidsson</Brand>
       <Category>Chopper</Category>
     </Motorcycle>
-    <Motorcycle />
     <Motorcycle>
       <REG_NR>TAI532</REG_NR>
       <Color>Black</Color>
@@ -237,7 +183,6 @@
       <Brand>Harley-Davidsson</Brand>
       <Category>Chopper</Category>
     </Motorcycle>
-    <Motorcycle />
     <Motorcycle>
       <REG_NR>TEI532</REG_NR>
       <Color>Black</Color>
@@ -248,7 +193,6 @@
       <Brand>Harley-Davidsson</Brand>
       <Category>Cruiser</Category>
     </Motorcycle>
-    <Motorcycle />
     <Motorcycle>
       <REG_NR>TUI532</REG_NR>
       <Color>Black</Color>
@@ -259,7 +203,6 @@
       <Brand>Harley-Davidsson</Brand>
       <Category>Chopper</Category>
     </Motorcycle>
-    <Motorcycle />
     <Motorcycle>
       <REG_NR>TII532</REG_NR>
       <Color>Black</Color>
@@ -270,6 +213,49 @@
       <Brand>Harley-Davidsson</Brand>
       <Category>Cruiser</Category>
     </Motorcycle>
-    <Motorcycle />
+    <Boat>
+      <REG_NR>RAA938</REG_NR>
+      <Color>Silver</Color>
+      <NumberofWheels>0</NumberofWheels>
+      <ConstructionYear>1970</ConstructionYear>
+      <Buoyancy>14</Buoyancy>
+      <Length>15</Length>
+    </Boat>
+    <Boat>
+      <REG_NR>RAB938</REG_NR>
+      <Color>Blue</Color>
+      <NumberofWheels>0</NumberofWheels>
+      <ConstructionYear>1971</ConstructionYear>
+      <Buoyancy>13</Buoyancy>
+      <Length>33</Length>
+    </Boat>
+    <Boat>
+      <REG_NR>RBA938</REG_NR>
+      <Color>White</Color>
+      <NumberofWheels>0</NumberofWheels>
+      <ConstructionYear>1972</ConstructionYear>
+      <Buoyancy>10</Buoyancy>
+      <Length>64</Length>
+    </Boat>
+    <Boat>
+      <REG_NR>RBB938</REG_NR>
+      <Color>Black</Color>
+      <NumberofWheels>0</NumberofWheels>
+      <ConstructionYear>1973</ConstructionYear>
+      <Buoyancy>20</Buoyancy>
+      <Length>13</Length>
+    </Boat>
+  </Garage>
+  <Garage Name="EriksGarage" Capacity="10">
+    <Car>
+      <REG_NR>CAB262</REG_NR>
+      <Color>Black</Color>
+      <NumberofWheels>4</NumberofWheels>
+      <ConstructionYear>2014</ConstructionYear>
+      <Mileage>10000</Mileage>
+      <LicenseRequirement>B</LicenseRequirement>
+      <BaggageVolume>0</BaggageVolume>
+      <FuelType>Diesel</FuelType>
+    </Car>
   </Garage>
 </Garages>

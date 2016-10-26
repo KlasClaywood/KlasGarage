@@ -57,7 +57,7 @@ namespace KlasGarage.Objects.UIcomponents
                 var garra = new XElement("Garage");
                 garra.Add(new XAttribute("Name", gar.Name));
                 garra.Add(new XAttribute("Capacity", gar.Max));
-                foreach (var fordon in garage)
+                foreach (var fordon in gar)
                 {
                     var reg = new XElement("REG_NR", fordon.REG_NR);
                     var col = new XElement("Color", fordon.Color);
@@ -104,8 +104,7 @@ namespace KlasGarage.Objects.UIcomponents
                         var line = new XElement("AirLine", airplane.AirLine);
                         garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, max, line));
                     }
-                    var ford = new XElement(fordon.Type);
-                    garra.Add(ford);
+                    
                 }
                 allagarage.Add(garra);
             }
