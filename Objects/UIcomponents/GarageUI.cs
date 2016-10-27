@@ -24,7 +24,7 @@ namespace KlasGarage.Objects.UIcomponents
             garage = garages.First();
             kommandolista = new List<UIItem>();
             kommandolista.Add(new UIItem("Lista fordon", "Huvudmeny", ListaFordon, 1));
-            kommandolista.Add(new UIItem("Skapa ett fordon", "Huvudmeny", SkapaFordon, 2));
+            kommandolista.Add(new UIItem("Skapa ett fordon", "Huvudmeny", FyllTyp, 2));
             kommandolista.Add(new UIItem("Ta bort ett fordon", "Huvudmeny", TaBortFordon, 3));
             kommandolista.Add(new UIItem("Byt garage", "Huvudmeny", BytGarage, 3));
             kommandolista.Add(new UIItem("Sök på Regnr", "Huvudmeny", SokPaRegnr, 4));
@@ -81,8 +81,13 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void CreateAirplane()
         {
+            UIItem typ = kommandolista.Where(item => item.Command == "Finish" && item.Category == "Create Vehicle")
+                //.Select (item => item)
+                //.ToArray()
+                                      .First();
+            typ.Additional = "Airplane";
             var query = from item in kommandolista
-                        where item.Category == "Create Airplane" || item.Category == "Create Vehicle"
+                        where item.Command != "Type" && item.Category == "Create Airplane" || item.Category == "Create Vehicle"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -94,8 +99,13 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void CreateBoat()
         {
+            UIItem typ = kommandolista.Where(item => item.Command == "Finish" && item.Category == "Create Vehicle")
+                //.Select (item => item)
+                //.ToArray()
+                                      .First();
+            typ.Additional = "Boat";
             var query = from item in kommandolista
-                        where item.Category == "Create Boat" || item.Category == "Create Vehicle"
+                        where item.Command != "Type" && item.Category == "Create Boat" || item.Category == "Create Vehicle"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -107,8 +117,13 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void CreateMC()
         {
+            UIItem typ = kommandolista.Where(item => item.Command == "Finish" && item.Category == "Create Vehicle")
+                //.Select (item => item)
+                //.ToArray()
+                                      .First();
+            typ.Additional = "Motorcycle";
             var query = from item in kommandolista
-                        where item.Category == "Create Motorcycle" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
+                        where item.Command != "Type" && item.Category == "Create Motorcycle" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -120,8 +135,13 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void CreateBuss()
         {
+            UIItem typ = kommandolista.Where(item => item.Command == "Finish" && item.Category == "Create Vehicle")
+                //.Select (item => item)
+                //.ToArray()
+                                      .First();
+            typ.Additional = "Buss";
             var query = from item in kommandolista
-                        where item.Category == "Create Buss" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
+                        where item.Command != "Type" && item.Category == "Create Buss" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -133,8 +153,14 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void CreateCar()
         {
+            UIItem typ = kommandolista.Where(item => item.Command == "Finish" && item.Category == "Create Vehicle")
+                                      //.Select (item => item)
+                                      //.ToArray()
+                                      .First();
+            typ.Additional = "Car";
+
             var query = from item in kommandolista
-                        where item.Category == "Create Car" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
+                        where item.Command != "Type" && item.Category == "Create Car" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -159,8 +185,116 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void Create()
         {
-            string type = activeMenu.Where(item => item.Command == "Type" && item.Category == "Create Vehicle").Take(1).Select(item => item.Additional).ToString();
+            string type = activeMenu.Where(item => item.Command == "Finish" 
+                                                && item.Category == "Create Vehicle")    
+                                    .ToArray()
+                                    .First()
+                                    .Additional;
+            string[] vehicleValues = kommandolista.Where(item => item.Category == "Create Vehicle")
+                                               .OrderBy(item => item.ID)
+                                               .Select(item => item.Additional)
+                                               .ToArray();
+            string reg = (vehicleValues[1] == " ")? "AAA000" : vehicleValues[1];
+            string col = (vehicleValues[2] == " ")? "Colorless" : vehicleValues[2];
+            int nowhels;
+            if (vehicleValues[3] == " ")
+            {
+                switch (type)
+                {
+                    case "Car":
+                        nowhels = 4;
+                        break;
+                    case "Buss":
+                        nowhels = 6;
+                        break;
+                    case "Motorcycle":
+                        nowhels = 2;
+                        break;
+                    case "Boat":
+                        nowhels = 0;
+                        break;
+                    case "Airplane":
+                        nowhels = 3;
+                        break;
+                    default:
+                        nowhels = 0;
+                        break;
+                }
+            }
+            else
+            {
+                nowhels = int.Parse(vehicleValues[3]);
+            }
+            int conyear = (vehicleValues[4] == " ")? 0 : int.Parse(vehicleValues[4]);
             
+            string [] landVehicleValues = kommandolista.Where(item => item.Category == "Create LandVehicle")
+                                                    .OrderBy(item => item.ID)
+                                                    .Select(item => item.Additional)
+                                                    .ToArray();
+            int miles = (landVehicleValues[0] == " ")? 0 : int.Parse(landVehicleValues[0]);
+            string lic = (landVehicleValues[1] == " ")? "A" : landVehicleValues[1];
+            
+            string [] carValues = kommandolista.Where(item => item.Category == "Create Car")
+                                               .OrderBy(item => item.ID)
+                                               .Select(item => item.Additional)
+                                               .ToArray();
+            double bagvol = (carValues[0] == " ")? 0: double.Parse(carValues[0]);
+            string fuel = (carValues[1] == " ")? "None" : carValues[1];
+
+            string [] bussValues = kommandolista.Where(item => item.Category == "Create Buss")
+                                                .OrderBy(item => item.ID)
+                                                .Select(item => item.Additional)
+                                                .ToArray();
+
+            int noseats = (bussValues[0] == " ")? 0: int.Parse(bussValues[0]);
+            int line = (bussValues[1] == " ")? 0: int.Parse(bussValues[1]);
+
+            string [] mcValues = kommandolista.Where(item => item.Category == "Create Motorcycle")
+                                                .OrderBy(item => item.ID)
+                                                .Select(item => item.Additional)
+                                                .ToArray();
+            string brand =(mcValues[0] == " ")? "Brandless" : mcValues[0];
+            string cat = (mcValues[1] == " ")? "N/A" : mcValues[1];
+
+            string [] boatValues = kommandolista.Where(item => item.Category == "Create Boat")
+                                                .OrderBy(item => item.ID)
+                                                .Select(item => item.Additional)
+                                                .ToArray();
+            int buoy = (boatValues[0] == " " )? 0 : int.Parse(boatValues[0]);
+            int len = (boatValues[1] == " " )? 0 : int.Parse(boatValues[1]);
+
+            string [] airplaneValues = kommandolista.Where(item => item.Category == "Create Airplane")
+                                                .OrderBy(item => item.ID)
+                                                .Select(item => item.Additional)
+                                                .ToArray();
+            int max = (airplaneValues[0] == " ")? 0: int.Parse(airplaneValues[0]);
+            string airline = (airplaneValues[1] == " ")? "N/A": airplaneValues[1];
+
+            
+            switch (type)
+            {
+                case "Car":
+                    garage.Add(new Car(reg, col, nowhels, conyear, miles, lic, bagvol, fuel));
+                    break;
+                case "Buss":
+                    garage.Add(new Buss(reg, col, nowhels, conyear, miles, lic, noseats, line));
+                    break;
+                case "Motorcycle":
+                    garage.Add(new Motorcycle(reg, col, nowhels, conyear, miles, lic, brand, cat));
+                    break;
+                case "Boat":
+                    garage.Add(new Boat(reg, col, nowhels, conyear, buoy, len));
+                    break;
+                case "Airplane":
+                    garage.Add(new Airplane(reg, col, nowhels, conyear, max, airline));
+                    break;
+                default:
+                    break;
+            }
+            Console.Clear();
+            Console.WriteLine("New {0} added.", type);
+            Console.ReadKey();
+            SetToMainMenu();
         }
 
        
