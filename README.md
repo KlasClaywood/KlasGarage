@@ -8,6 +8,7 @@ Rapport: Följande åtgärder har färdigställts fram till lunch:
 * **Engelska.** Engelska har valts som standardspråk i applikationen. Allt som skrivs nu skrivs på engelska.
 
 Följande åtgärder kvarstår:
+* **Lista Typer av Fordon.** Programmet ska kunna lista samtliga olika typer av fordon i garaget och hur många av dessa som står i garaget.
 * **Kommentering.** Fortfarande inga kommentarer för att förklara koden.
 * **SvEngelska.** Fortfarande blandat svenska och engelska. Allt ska vara på Engelska.
 
