@@ -337,30 +337,39 @@ namespace KlasGarage.Objects.UIcomponents
             int max = (airplaneValues[0] == " ")? 0: int.Parse(airplaneValues[0]);
             string airline = (airplaneValues[1] == " ")? "N/A": airplaneValues[1];
 
-            
-            switch (type)
+            try
             {
-                case "Car":
-                    garage.Add(new Car(reg, col, nowhels, conyear, miles, lic, bagvol, fuel));
-                    break;
-                case "Buss":
-                    garage.Add(new Buss(reg, col, nowhels, conyear, miles, lic, noseats, line));
-                    break;
-                case "Motorcycle":
-                    garage.Add(new Motorcycle(reg, col, nowhels, conyear, miles, lic, brand, cat));
-                    break;
-                case "Boat":
-                    garage.Add(new Boat(reg, col, nowhels, conyear, buoy, len));
-                    break;
-                case "Airplane":
-                    garage.Add(new Airplane(reg, col, nowhels, conyear, max, airline));
-                    break;
-                default:
-                    break;
+                switch (type)
+                {
+                    case "Car":
+                        garage.Add(new Car(reg, col, nowhels, conyear, miles, lic, bagvol, fuel));
+                        break;
+                    case "Buss":
+                        garage.Add(new Buss(reg, col, nowhels, conyear, miles, lic, noseats, line));
+                        break;
+                    case "Motorcycle":
+                        garage.Add(new Motorcycle(reg, col, nowhels, conyear, miles, lic, brand, cat));
+                        break;
+                    case "Boat":
+                        garage.Add(new Boat(reg, col, nowhels, conyear, buoy, len));
+                        break;
+                    case "Airplane":
+                        garage.Add(new Airplane(reg, col, nowhels, conyear, max, airline));
+                        break;
+                    default:
+                        break;
+                }
+                Console.Clear();
+                Console.WriteLine("New {0} added.", type);
+                Console.ReadKey();
             }
-            Console.Clear();
-            Console.WriteLine("New {0} added.", type);
-            Console.ReadKey();
+            catch (Exception e)
+            {
+                Console.Clear();
+                Console.WriteLine(e.Message);
+                Console.ReadKey();
+            }
+            
             SetToMainMenu();
         }
 
@@ -479,7 +488,7 @@ namespace KlasGarage.Objects.UIcomponents
             List<UIItem> tempmeny = new List<UIItem>();
             for (int i = 0; i < garages.Count(); i++)
             {
-                tempmeny.Add(new UIItem(garages.ElementAt(i).Name, "Alla garage", AllaGarage, i + 1));
+                tempmeny.Add(new UIItem(garages.ElementAt(i).Name, "Alla garage", garages.ElementAt(i).Max.ToString(), AllaGarage, i + 1));
             }
             activeMenu = tempmeny;
             activeindex = 0;
