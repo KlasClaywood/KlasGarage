@@ -23,28 +23,35 @@ namespace KlasGarage.Objects.UIcomponents
             
             garage = garages.First();
             kommandolista = new List<UIItem>();
-            kommandolista.Add(new UIItem("Lista fordon", "Huvudmeny", ListaFordon, 1));
-            kommandolista.Add(new UIItem("Skapa ett fordon", "Huvudmeny", FyllTyp, 2));
-            kommandolista.Add(new UIItem("Ta bort ett fordon", "Huvudmeny", TaBortFordon, 3));
-            kommandolista.Add(new UIItem("Byt garage", "Huvudmeny", BytGarage, 3));
-            kommandolista.Add(new UIItem("Sök på Regnr", "Huvudmeny", SokPaRegnr, 4));
-            kommandolista.Add(new UIItem("Sök på olika variabler", "Huvudmeny", SokPaOlikaVariabler, 5));
-            kommandolista.Add(new UIItem("Spara till hårddisken", "Huvudmeny", SparaTillDisk, 6));
-            kommandolista.Add(new UIItem("Skapa bil", "Skapa fordon", SkapaBil, 1));
-            kommandolista.Add(new UIItem("Skapa båt", "Skapa fordon", SkapaBat, 2));
-            kommandolista.Add(new UIItem("Skapa buss", "Skapa fordon", SkapaBuss, 3));
-            kommandolista.Add(new UIItem("Skapa motorcykel", "Skapa fordon", SkapaMC, 4));
-            kommandolista.Add(new UIItem("Skapa flygplan", "Skapa fordon", SkapaFlygplan, 5));
-            kommandolista.Add(new UIItem("Skapa nytt garage", "Byt garage", SkapaGarage, 1));
-            kommandolista.Add(new UIItem("Välj garage", "Byt garage", ValjGarage, 2));
+            kommandolista.Add(new UIItem("List vehicles", "Huvudmeny", ListaVehicle, 0));
+            kommandolista.Add(new UIItem("List types of vehicle", "Huvudmeny", ListaTyper, 1));
+            kommandolista.Add(new UIItem("Create new vehicle", "Huvudmeny", FyllTyp, 2));
+            kommandolista.Add(new UIItem("Remove vehicle", "Huvudmeny", TaBortVehicle, 3));
+            kommandolista.Add(new UIItem("Change garage", "Huvudmeny", BytGarage, 3));
+            kommandolista.Add(new UIItem("Search on Regnr", "Huvudmeny", SokPaRegnr, 4));
+            kommandolista.Add(new UIItem("Search on different variables", "Huvudmeny", SokPaOlikaVariabler, 5));
+            kommandolista.Add(new UIItem("Save garages to disc", "Huvudmeny", SparaTillDisk, 6));
+            kommandolista.Add(new UIItem("Exit", "Huvudmeny", SparaTillDisk, 7));
+            kommandolista.Add(new UIItem("Return to main menu", "Return", SetToMainMenu, 100));
+
+            kommandolista.Add(new UIItem("Skapa bil", "Skapa vehicle", SkapaBil, 1));
+            kommandolista.Add(new UIItem("Skapa båt", "Skapa vehicle", SkapaBat, 2));
+            kommandolista.Add(new UIItem("Skapa buss", "Skapa vehicle", SkapaBuss, 3));
+            kommandolista.Add(new UIItem("Skapa motorcykel", "Skapa vehicle", SkapaMC, 4));
+            kommandolista.Add(new UIItem("Skapa flygplan", "Skapa vehicle", SkapaFlygplan, 5));
+
+            kommandolista.Add(new UIItem("Create new garage", "Byt garage", SkapaGarage, 1));
+            kommandolista.Add(new UIItem("Choose garage", "Byt garage", ValjGarage, 2));
+
             kommandolista.Add(new UIItem("REG_NR", "Sök på olika variabler"," ","string", SokFras, 1));
             kommandolista.Add(new UIItem("Color", "Sök på olika variabler", " ", "string", SokFras, 1));
             kommandolista.Add(new UIItem("Construction year", "Sök på olika variabler", " ", "int", SokFras, 1));
             kommandolista.Add(new UIItem("Number of wheels", "Sök på olika variabler", " ", "int", SokFras, 1));
-            kommandolista.Add(new UIItem("Type", "Sök på olika variabler", " ","string", SokFras, 0));
+            kommandolista.Add(new UIItem("Type", "Sök på olika variabler", " ","string", FyllTypSok, 0));
             kommandolista.Add(new UIItem("Mileage", "Sök på olika variabler", " ","int", SokFras, 1));
             kommandolista.Add(new UIItem("License requirement", "Sök på olika variabler", " ", "string", SokFras, 1));
-            kommandolista.Add(new UIItem("Sök", "Sök på olika variabler", SokMig, 2));
+            kommandolista.Add(new UIItem("Search", "Sök på olika variabler", SokMig, 2));
+
             kommandolista.Add(new UIItem("Type", "Create Vehicle", " ", "string", FyllTyp, 1));
             kommandolista.Add(new UIItem("REG_NR", "Create Vehicle", " ", "string", Fyll, 2));
             kommandolista.Add(new UIItem("Color", "Create Vehicle", " ", "string", Fyll, 3));
@@ -68,6 +75,11 @@ namespace KlasGarage.Objects.UIcomponents
             kommandolista.Add(new UIItem("Motorcycle", "Fill Type", CreateMC, 3));
             kommandolista.Add(new UIItem("Boat", "Fill Type", CreateBoat, 4));
             kommandolista.Add(new UIItem("Airplane", "Fill Type", CreateAirplane, 5));
+            kommandolista.Add(new UIItem("Car", "Search Type", SokPaOlikaVariabler, 1));
+            kommandolista.Add(new UIItem("Buss", "Search Type", SokPaOlikaVariabler, 2));
+            kommandolista.Add(new UIItem("Motorcycle", "Search Type", SokPaOlikaVariabler, 3));
+            kommandolista.Add(new UIItem("Boat", "Search Type", SokPaOlikaVariabler, 4));
+            kommandolista.Add(new UIItem("Airplane", "Search Type", SokPaOlikaVariabler, 5));
             var query = from item in kommandolista
                          where item.Category == "Huvudmeny"
                          orderby item.ID
@@ -79,15 +91,70 @@ namespace KlasGarage.Objects.UIcomponents
             activeindex = 0;
         }
 
+        private void FyllTypSok()
+        {
+            var query = from item in kommandolista
+                        where item.Category == "Search Type" || item.Category == "Return"
+                        orderby item.ID
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+
+            active = activeMenu.ElementAt(0);
+
+            activeindex = 0;
+        }
+
+        private void ListaTyper2()
+        {
+            List<UIItem> nyMeny = new List<UIItem>();
+            var types = (from vehicle in garage
+                         group vehicle by vehicle.Type into typ                         
+                         select typ.Key).ToArray();
+            var antal = (from vehicle in garage
+                         group vehicle by vehicle.Type into ant
+                         select ant.Count()).ToArray();
+            for (int i = 0; i < types.Length; i++ )
+            {
+                nyMeny.Add(new UIItem(types[i], "Type List", antal[i].ToString(), ShowType, i));
+            }
+            nyMeny.Add(new UIItem("Return to main menu", "Type List", SetToMainMenu, types.Count()));
+            activeMenu = nyMeny;
+            active = activeMenu.First();
+            activeindex = 0;
+        }
+        private void ListaTyper()
+        {
+            List<UIItem> nyMeny = new List<UIItem>();
+            var types = from vehicle in garage
+                        group vehicle by vehicle.Type into type
+                        select type;
+            foreach (var type in types)
+            {
+                nyMeny.Add(new UIItem(type.Key, "Type List", type.Count().ToString(), ShowType, 1));
+            }
+            nyMeny.Add(new UIItem("Return to main menu", "Type List", SetToMainMenu, types.Count()));
+            activeMenu = nyMeny;
+            active = activeMenu.First();
+            activeindex = 0;
+        }
+
+        private void ShowType()
+        {
+            var vehiclelista = garage.Where(f => f.Type == active.Command).OrderBy(f => f.REG_NR).ToList<Vehicle>();
+
+            PrintaVehicle(vehiclelista);
+            SetToMainMenu();
+        }
+
         private void CreateAirplane()
         {
-            UIItem typ = kommandolista.Where(item => item.Command == "Finish" && item.Category == "Create Vehicle")
+            UIItem typ = kommandolista.Where(item => item.Command == "Type" && item.Category == "Create Vehicle")
                 //.Select (item => item)
                 //.ToArray()
                                       .First();
             typ.Additional = "Airplane";
             var query = from item in kommandolista
-                        where item.Command != "Type" && item.Category == "Create Airplane" || item.Category == "Create Vehicle"
+                        where item.Category == "Create Airplane" || item.Category == "Create Vehicle" || item.Category == "Return"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -99,13 +166,13 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void CreateBoat()
         {
-            UIItem typ = kommandolista.Where(item => item.Command == "Finish" && item.Category == "Create Vehicle")
+            UIItem typ = kommandolista.Where(item => item.Command == "Type" && item.Category == "Create Vehicle")
                 //.Select (item => item)
                 //.ToArray()
                                       .First();
             typ.Additional = "Boat";
             var query = from item in kommandolista
-                        where item.Command != "Type" && item.Category == "Create Boat" || item.Category == "Create Vehicle"
+                        where item.Category == "Create Boat" || item.Category == "Create Vehicle" || item.Category == "Return"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -117,13 +184,13 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void CreateMC()
         {
-            UIItem typ = kommandolista.Where(item => item.Command == "Finish" && item.Category == "Create Vehicle")
+            UIItem typ = kommandolista.Where(item => item.Command == "Type" && item.Category == "Create Vehicle")
                 //.Select (item => item)
                 //.ToArray()
                                       .First();
             typ.Additional = "Motorcycle";
             var query = from item in kommandolista
-                        where item.Command != "Type" && item.Category == "Create Motorcycle" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
+                        where item.Category == "Create Motorcycle" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle" || item.Category == "Return"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -135,13 +202,13 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void CreateBuss()
         {
-            UIItem typ = kommandolista.Where(item => item.Command == "Finish" && item.Category == "Create Vehicle")
+            UIItem typ = kommandolista.Where(item => item.Command == "Type" && item.Category == "Create Vehicle")
                 //.Select (item => item)
                 //.ToArray()
                                       .First();
             typ.Additional = "Buss";
             var query = from item in kommandolista
-                        where item.Command != "Type" && item.Category == "Create Buss" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
+                        where item.Category == "Create Buss" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle" || item.Category == "Return"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -153,14 +220,14 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void CreateCar()
         {
-            UIItem typ = kommandolista.Where(item => item.Command == "Finish" && item.Category == "Create Vehicle")
+            UIItem typ = kommandolista.Where(item => item.Command == "Type" && item.Category == "Create Vehicle")
                                       //.Select (item => item)
                                       //.ToArray()
                                       .First();
             typ.Additional = "Car";
 
             var query = from item in kommandolista
-                        where item.Command != "Type" && item.Category == "Create Car" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
+                        where item.Category == "Create Car" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle" || item.Category == "Return"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -173,7 +240,7 @@ namespace KlasGarage.Objects.UIcomponents
         private void FyllTyp()
         {
             var query = from item in kommandolista
-                        where item.Category == "Fill Type"
+                        where item.Category == "Fill Type" || item.Category == "Return"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -185,7 +252,7 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void Create()
         {
-            string type = activeMenu.Where(item => item.Command == "Finish" 
+            string type = activeMenu.Where(item => item.Command == "Type" 
                                                 && item.Category == "Create Vehicle")    
                                     .ToArray()
                                     .First()
@@ -310,52 +377,52 @@ namespace KlasGarage.Objects.UIcomponents
                 var garra = new XElement("Garage");
                 garra.Add(new XAttribute("Name", gar.Name));
                 garra.Add(new XAttribute("Capacity", gar.Max));
-                foreach (var fordon in gar)
+                foreach (var vehicle in gar)
                 {
-                    var reg = new XElement("REG_NR", fordon.REG_NR);
-                    var col = new XElement("Color", fordon.Color);
-                    var nowhels = new XElement("NumberofWheels", fordon.NumberofWheels);
-                    var conyear = new XElement("ConstructionYear", fordon.ConstructionYear);
-                    if (fordon is LandVehicle)
+                    var reg = new XElement("REG_NR", vehicle.REG_NR);
+                    var col = new XElement("Color", vehicle.Color);
+                    var nowhels = new XElement("NumberofWheels", vehicle.NumberofWheels);
+                    var conyear = new XElement("ConstructionYear", vehicle.ConstructionYear);
+                    if (vehicle is LandVehicle)
                     {
-                        LandVehicle landvehicle = fordon as LandVehicle;
+                        LandVehicle landvehicle = vehicle as LandVehicle;
                         var mil = new XElement("Mileage", landvehicle.Mileage);
                         var lic = new XElement("LicenseRequirement", landvehicle.LicenseRequirement);
-                        if (fordon is Buss)
+                        if (vehicle is Buss)
                         {
-                            Buss buss = fordon as Buss;
+                            Buss buss = vehicle as Buss;
                             var noseats = new XElement("NumberofSeats", buss.NumberofSeats);
                             var line = new XElement("Line", buss.Line);
-                            garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, mil, lic, noseats, line));
+                            garra.Add(new XElement(vehicle.Type, reg, col, nowhels, conyear, mil, lic, noseats, line));
                         }
-                        else if (fordon is Car)
+                        else if (vehicle is Car)
                         {
-                            Car car = fordon as Car;
+                            Car car = vehicle as Car;
                             var bagvol = new XElement("BaggageVolume", car.BaggageVolume);
                             var fuel = new XElement("FuelType", car.FuelType);
-                            garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, mil, lic, bagvol, fuel));
+                            garra.Add(new XElement(vehicle.Type, reg, col, nowhels, conyear, mil, lic, bagvol, fuel));
                         }
-                        else if (fordon is Motorcycle)
+                        else if (vehicle is Motorcycle)
                         {
-                            Motorcycle motorcycle = fordon as Motorcycle;
+                            Motorcycle motorcycle = vehicle as Motorcycle;
                             var brand = new XElement("Brand", motorcycle.Brand);
                             var cat = new XElement("Category", motorcycle.Category);
-                            garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, mil, lic, brand, cat));
+                            garra.Add(new XElement(vehicle.Type, reg, col, nowhels, conyear, mil, lic, brand, cat));
                         }
                     }
-                    else if (fordon is Boat)
+                    else if (vehicle is Boat)
                     {
-                        Boat boat = fordon as Boat;
+                        Boat boat = vehicle as Boat;
                         var buoy = new XElement("Buoyancy", boat.Buoyancy);
                         var len = new XElement("Length", boat.Length);
-                        garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, buoy, len));
+                        garra.Add(new XElement(vehicle.Type, reg, col, nowhels, conyear, buoy, len));
                     }
-                    else if(fordon is Airplane)
+                    else if(vehicle is Airplane)
                     {
-                        Airplane airplane = fordon as Airplane;
+                        Airplane airplane = vehicle as Airplane;
                         var max = new XElement("MaxAltitude", airplane.MaxAltitude);
                         var line = new XElement("AirLine", airplane.AirLine);
-                        garra.Add(new XElement(fordon.Type, reg, col, nowhels, conyear, max, line));
+                        garra.Add(new XElement(vehicle.Type, reg, col, nowhels, conyear, max, line));
                     }
                     
                 }
@@ -365,13 +432,14 @@ namespace KlasGarage.Objects.UIcomponents
             document.Save("vehicles.xml");
         }
 
-        private void TaBortFordon()
+        private void TaBortVehicle()
         {
             List<UIItem> tempmeny = new List<UIItem>();
-            foreach (Vehicle fordon in garage)
+            foreach (Vehicle vehicle in garage)
             {
-                tempmeny.Add(new UIItem(fordon.Type, "TaBortMig", fordon.REG_NR, TaBortMig, 0));
+                tempmeny.Add(new UIItem(vehicle.Type, "TaBortMig", vehicle.REG_NR, TaBortMig, 0));
             }
+            tempmeny.Add(new UIItem("Return to main menu", "Return", SetToMainMenu, tempmeny.Count()));
             activeMenu = tempmeny.OrderBy(b => b.Command).ToList();
             active = activeMenu.First();
             activeindex = 0;
@@ -445,7 +513,7 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void SkapaFlygplan()
         {
-            Vehicle temp = SkapaGenerisktFordon("Airplane", 3);
+            Vehicle temp = SkapaGenerisktVehicle("Airplane", 3);
             Console.WriteLine("Input maximum altitude:");
             int max = 0;
             while (!int.TryParse(Console.ReadLine(), out max))
@@ -473,7 +541,7 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void SkapaMC()
         {
-            LandVehicle temp = SkapaLandfordon("Motorcycle", 2);
+            LandVehicle temp = SkapaLandVehicle("Motorcycle", 2);
             Console.WriteLine("Input brand:");
             string brand = Console.ReadLine();
             Console.WriteLine("Input category of bike:");
@@ -484,7 +552,7 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void SkapaBuss()
         {
-            LandVehicle temp = SkapaLandfordon("Buss", 8);
+            LandVehicle temp = SkapaLandVehicle("Buss", 8);
             Console.WriteLine("Input number of seats:");
             int noseats = 0;
             while (!int.TryParse(Console.ReadLine(), out noseats))
@@ -503,9 +571,9 @@ namespace KlasGarage.Objects.UIcomponents
             SetToMainMenu();
         }
 
-        private LandVehicle SkapaLandfordon(string type, int nowheels)
+        private LandVehicle SkapaLandVehicle(string type, int nowheels)
         {
-            Vehicle temp = SkapaGenerisktFordon(type, nowheels);
+            Vehicle temp = SkapaGenerisktVehicle(type, nowheels);
             Console.WriteLine("Input mileage:");
             int miles = 0;
             while (!int.TryParse(Console.ReadLine(), out miles))
@@ -518,7 +586,7 @@ namespace KlasGarage.Objects.UIcomponents
             return new LandVehicle(type, temp.REG_NR, temp.Color, nowheels, temp.ConstructionYear, miles, license);
         }
 
-        private Vehicle SkapaGenerisktFordon(string type, int nowheels)
+        private Vehicle SkapaGenerisktVehicle(string type, int nowheels)
         {
             Console.WriteLine("Input reg. no:");
             string regnr = Console.ReadLine();
@@ -536,7 +604,7 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void SkapaBat()
         {
-            Vehicle temp = SkapaGenerisktFordon("Boat", 0);
+            Vehicle temp = SkapaGenerisktVehicle("Boat", 0);
             Console.WriteLine("Input buoyancy:");
             int buoy = 0;
             while (!int.TryParse(Console.ReadLine(), out buoy))
@@ -557,7 +625,7 @@ namespace KlasGarage.Objects.UIcomponents
 
         private void SkapaBil()
         {
-            LandVehicle temp = SkapaLandfordon("Car", 4);
+            LandVehicle temp = SkapaLandVehicle("Car", 4);
             Console.WriteLine("Input baggage volume:");
             double bagvol = 0;
             while (double.TryParse(Console.ReadLine(), out bagvol))
@@ -576,6 +644,7 @@ namespace KlasGarage.Objects.UIcomponents
         {
             Console.Clear();
             bool avsluta = false;
+            Console.SetWindowSize(80, activeMenu.Count()+5);
             foreach (string argument in arguments)
             {
                 Console.WriteLine(argument);
@@ -597,6 +666,7 @@ namespace KlasGarage.Objects.UIcomponents
             ConsoleKeyInfo svar = Console.ReadKey();
             switch (svar.Key)
             {
+                    
                 case ConsoleKey.UpArrow:
                     if (activeindex > 0)
                     {
@@ -621,7 +691,10 @@ namespace KlasGarage.Objects.UIcomponents
                     break;
                 case ConsoleKey.Enter:
                     Console.Clear();
-                    active.Invoke();
+                    if (active.Command == "Exit")
+                        avsluta = true;
+                    else
+                        active.Invoke();
                     //avsluta = true;
                     break;
                 case ConsoleKey.Escape:
@@ -635,29 +708,30 @@ namespace KlasGarage.Objects.UIcomponents
 
 
 
-        public void ListaFordon()
+        public void ListaVehicle()
         {
-            var fordonlista = garage.OrderBy(f => f.Type).ToList<Vehicle>();
+            var vehiclelista = garage.OrderBy(f => f.Type).ToList<Vehicle>();
             
-            PrintaFordon(fordonlista);
+            PrintaVehicle(vehiclelista);
         }
 
-        public void PrintaFordon(List<Vehicle> fordonlista)
+        public void PrintaVehicle(List<Vehicle> vehiclelista)
         {
             Console.Clear();
             Vehicle tmp = null;
-            if (fordonlista.Count == 0)
+            Console.SetWindowSize(80, vehiclelista.Count() + 20);
+            if (vehiclelista.Count == 0)
             {
                 Console.WriteLine("No results to your search");
             }
-            foreach (Vehicle fordon in fordonlista)
+            foreach (Vehicle vehicle in vehiclelista)
             {
-                if (tmp == null || fordon.Type != tmp.Type)
+                if (tmp == null || vehicle.Type != tmp.Type)
                 {
-                    PrintHeader(fordon.Type);
-                    tmp = fordon;
+                    PrintHeader(vehicle.Type);
+                    tmp = vehicle;
                 }
-                Console.WriteLine(fordon);
+                Console.WriteLine(vehicle);
             }
             
             Console.ReadKey();
@@ -705,10 +779,10 @@ namespace KlasGarage.Objects.UIcomponents
             }
         }
 
-        public void SkapaFordon()
+        public void SkapaVehicle()
         {
             var query = from item in kommandolista
-                        where item.Category == "Skapa fordon"
+                        where item.Category == "Skapa Vehicle"
                         orderby item.ID
                         select item;
             activeMenu = query.ToList<UIItem>();
@@ -731,11 +805,16 @@ namespace KlasGarage.Objects.UIcomponents
         {
             string reg = Console.ReadLine();
             var query = garage.Where(b => b.REG_NR.Contains(reg)).OrderBy(b => b.Type).ToList<Vehicle>();
-            PrintaFordon(query);
+            PrintaVehicle(query);
         }
 
         public void SokPaOlikaVariabler()
         {
+            var typeQuery = (from item in kommandolista
+                            where item.Command == "Type" && item.Category == "Sök på olika variabler"
+                            select item).First();
+            typeQuery.Additional = (active.Category == "Search Type")? active.Command : " ";
+
             var query = from item in kommandolista
                         where item.Category == "Sök på olika variabler"
                         orderby item.ID
@@ -853,11 +932,11 @@ namespace KlasGarage.Objects.UIcomponents
                         orderby item.ID
                         select item;
             List<UIItem> sokFrasLista = query.ToList<UIItem>();
-            var result1 = from fordon in garage
-                         select fordon;
-            var result2 = from fordon in garage
-                          select fordon;
-            List<Vehicle> fordonLista = result1.ToList<Vehicle>();
+            var result1 = from vehicle in garage
+                         select vehicle;
+            var result2 = from vehicle in garage
+                          select vehicle;
+            List<Vehicle> vehicleLista = result1.ToList<Vehicle>();
             List<Vehicle> resultLista = result2.ToList<Vehicle>();
             foreach (var item in sokFrasLista)
             {
@@ -865,52 +944,52 @@ namespace KlasGarage.Objects.UIcomponents
                 switch (item.Command)
                 {
                     case "REG_NR":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b.REG_NR.Contains(item.Additional));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b.REG_NR.Contains(item.Additional));
                         break;
                     case "Type":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b.Type.Contains(item.Additional));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b.Type.Contains(item.Additional));
                         break;
                     case "Color":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b.Color.Contains(item.Additional));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b.Color.Contains(item.Additional));
                         break;
                     case "Number of wheels":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b.NumberofWheels.Equals(int.Parse(item.Additional)));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b.NumberofWheels.Equals(int.Parse(item.Additional)));
                         break;
                     case "Construction year":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b.ConstructionYear.Equals(int.Parse(item.Additional)));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b.ConstructionYear.Equals(int.Parse(item.Additional)));
                         break;
                     case "Mileage":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b is LandVehicle && (b as LandVehicle).Mileage.Equals(int.Parse(item.Additional)));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b is LandVehicle && (b as LandVehicle).Mileage.Equals(int.Parse(item.Additional)));
                         break;
                     case "License requirement":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b is LandVehicle && (b as LandVehicle).LicenseRequirement.Contains(item.Additional));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b is LandVehicle && (b as LandVehicle).LicenseRequirement.Contains(item.Additional));
                         break;
                     case "Brand":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b is Motorcycle && (b as Motorcycle).Brand.Contains(item.Additional));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b is Motorcycle && (b as Motorcycle).Brand.Contains(item.Additional));
                         break;
                     case "Category":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b is Motorcycle && (b as Motorcycle).Category.Contains(item.Additional));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b is Motorcycle && (b as Motorcycle).Category.Contains(item.Additional));
                         break;
                     case "Baggage volume":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b is Car && (b as Car).BaggageVolume.Equals(double.Parse(item.Additional)));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b is Car && (b as Car).BaggageVolume.Equals(double.Parse(item.Additional)));
                         break;
                     case "Fuel type":
-                        result1 = garage.Where(b => fordonLista.Contains(b) && b is Car && (b as Car).FuelType.Contains(item.Additional));
+                        result1 = garage.Where(b => vehicleLista.Contains(b) && b is Car && (b as Car).FuelType.Contains(item.Additional));
                         break;
                     default:
-                        result1 = from fordon in fordonLista
-                                  select fordon;
+                        result1 = from vehicle in vehicleLista
+                                  select vehicle;
                         break;
 
                 }
                 //if (item.Command != "Sök")
                 //{
-                    fordonLista = fordonLista.Intersect(result1.ToList<Vehicle>()).ToList<Vehicle>();
+                    vehicleLista = vehicleLista.Intersect(result1.ToList<Vehicle>()).ToList<Vehicle>();
                     item.Additional = " ";
                 //}
             }
             
-            PrintaFordon(fordonLista);
+            PrintaVehicle(vehicleLista);
             SetToMainMenu();
         }
     }
