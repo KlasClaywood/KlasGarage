@@ -50,6 +50,9 @@ namespace KlasGarage
             //AllGarages.Add(GreatGarage);
             GarageUI garageui = new GarageUI(AllGarages);
             Console.WindowWidth = 90;
+            
+            
+           
             while (garageui.RunMenu())
             {
 

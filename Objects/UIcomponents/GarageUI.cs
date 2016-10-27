@@ -57,24 +57,33 @@ namespace KlasGarage.Objects.UIcomponents
             kommandolista.Add(new UIItem("Color", "Create Vehicle", " ", "string", Fyll, 3));
             kommandolista.Add(new UIItem("Number of wheels", "Create Vehicle", " ", "int", Fyll, 4));
             kommandolista.Add(new UIItem("Construction year", "Create Vehicle", " ", "int", Fyll, 5));
+
             kommandolista.Add(new UIItem("Mileage", "Create LandVehicle", " ", "int", Fyll, 6));
             kommandolista.Add(new UIItem("License requirement", "Create LandVehicle", " ", "string", Fyll, 7));
+
             kommandolista.Add(new UIItem("Brand", "Create Motorcycle", " ", "string", Fyll, 8));
             kommandolista.Add(new UIItem("Category", "Create Motorcycle", " ", "string", Fyll, 9));
+
             kommandolista.Add(new UIItem("Baggage volume", "Create Car", " ", "double", Fyll, 10));
             kommandolista.Add(new UIItem("Fuel type", "Create Car", " ", "string", Fyll, 11));
+
             kommandolista.Add(new UIItem("Number of seats", "Create Buss", " ", "int", Fyll, 12));
             kommandolista.Add(new UIItem("Line", "Create Buss", " ", "int", Fyll, 13));
+
             kommandolista.Add(new UIItem("Buoyancy", "Create Boat", " ", "int", Fyll, 14));
             kommandolista.Add(new UIItem("Length", "Create Boat", " ", "int", Fyll, 15));
+
             kommandolista.Add(new UIItem("Maximum altitude", "Create Airplane", " ", "int", Fyll, 16));
             kommandolista.Add(new UIItem("Airline", "Create Airplane", " ", "int", Fyll, 17));
+
             kommandolista.Add(new UIItem("Finish", "Create Vehicle", Create, 18));
+
             kommandolista.Add(new UIItem("Car", "Fill Type", CreateCar, 1));
             kommandolista.Add(new UIItem("Buss", "Fill Type", CreateBuss, 2));
             kommandolista.Add(new UIItem("Motorcycle", "Fill Type", CreateMC, 3));
             kommandolista.Add(new UIItem("Boat", "Fill Type", CreateBoat, 4));
             kommandolista.Add(new UIItem("Airplane", "Fill Type", CreateAirplane, 5));
+
             kommandolista.Add(new UIItem("Car", "Search Type", SokPaOlikaVariabler, 1));
             kommandolista.Add(new UIItem("Buss", "Search Type", SokPaOlikaVariabler, 2));
             kommandolista.Add(new UIItem("Motorcycle", "Search Type", SokPaOlikaVariabler, 3));

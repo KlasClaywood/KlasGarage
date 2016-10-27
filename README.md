@@ -2,7 +2,7 @@
 Garage 1.0 En första ihopbindning
 
 ## Torsdag 27-10-16
-Rapport: Följande åtgärder har färdigställts fram till lunch:
+Rapport: Följande åtgärder har färdigställts:
 * **Skapa fordon.** Skapa fordon använder sig nu av samma gränssnitt som SökPåOlikaVariabler och har standardvärden om man inte orkar fylla i allt. Man kan även byta mellan fordonstyperna utan att det går att skriva fel.
 * **Sök på olika variabler.** SökPåOlikaVariabler FUNGERAR nu, vilket det inte gjorde tidigare. Det var ett problem med kommandot Sök som egentligen skulle starta sökningen men råkade räknas som ett sökargument som inget fordon kunde uppnå. Sökningarna blev därför alltid tomma.
 * **Engelska.** Engelska har valts som standardspråk i applikationen. Allt som skrivs nu skrivs på engelska. All text användaren har tillgång till är också översatt till engelska.
