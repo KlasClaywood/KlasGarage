@@ -258,4 +258,5 @@
       <FuelType>Diesel</FuelType>
     </Car>
   </Garage>
+  <Garage Name="TestGarage" Capacity="25" />
 </Garages>
