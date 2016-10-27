@@ -37,14 +37,37 @@ namespace KlasGarage.Objects.UIcomponents
             kommandolista.Add(new UIItem("Skapa flygplan", "Skapa fordon", SkapaFlygplan, 5));
             kommandolista.Add(new UIItem("Skapa nytt garage", "Byt garage", SkapaGarage, 1));
             kommandolista.Add(new UIItem("Välj garage", "Byt garage", ValjGarage, 2));
-            kommandolista.Add(new UIItem("REG_NR", "Sök på olika variabler"," ", SokFras, 1));
-            kommandolista.Add(new UIItem("Color", "Sök på olika variabler", " ", SokFras, 1));
-            kommandolista.Add(new UIItem("Construction year", "Sök på olika variabler", " ", SokFras, 1));
-            kommandolista.Add(new UIItem("Number of wheels", "Sök på olika variabler", " ", SokFras, 1));
-            kommandolista.Add(new UIItem("Type", "Sök på olika variabler", " ", SokFras, 0));
-            kommandolista.Add(new UIItem("Mileage", "Sök på olika variabler", " ", SokFras, 1));
-            kommandolista.Add(new UIItem("License requirement", "Sök på olika variabler", " ", SokFras, 1));
+            kommandolista.Add(new UIItem("REG_NR", "Sök på olika variabler"," ","string", SokFras, 1));
+            kommandolista.Add(new UIItem("Color", "Sök på olika variabler", " ", "string", SokFras, 1));
+            kommandolista.Add(new UIItem("Construction year", "Sök på olika variabler", " ", "int", SokFras, 1));
+            kommandolista.Add(new UIItem("Number of wheels", "Sök på olika variabler", " ", "int", SokFras, 1));
+            kommandolista.Add(new UIItem("Type", "Sök på olika variabler", " ","string", SokFras, 0));
+            kommandolista.Add(new UIItem("Mileage", "Sök på olika variabler", " ","int", SokFras, 1));
+            kommandolista.Add(new UIItem("License requirement", "Sök på olika variabler", " ", "string", SokFras, 1));
             kommandolista.Add(new UIItem("Sök", "Sök på olika variabler", SokMig, 2));
+            kommandolista.Add(new UIItem("Type", "Create Vehicle", " ", "string", FyllTyp, 1));
+            kommandolista.Add(new UIItem("REG_NR", "Create Vehicle", " ", "string", Fyll, 2));
+            kommandolista.Add(new UIItem("Color", "Create Vehicle", " ", "string", Fyll, 3));
+            kommandolista.Add(new UIItem("Number of wheels", "Create Vehicle", " ", "int", Fyll, 4));
+            kommandolista.Add(new UIItem("Construction year", "Create Vehicle", " ", "int", Fyll, 5));
+            kommandolista.Add(new UIItem("Mileage", "Create LandVehicle", " ", "int", Fyll, 6));
+            kommandolista.Add(new UIItem("License requirement", "Create LandVehicle", " ", "string", Fyll, 7));
+            kommandolista.Add(new UIItem("Brand", "Create Motorcycle", " ", "string", Fyll, 8));
+            kommandolista.Add(new UIItem("Category", "Create Motorcycle", " ", "string", Fyll, 9));
+            kommandolista.Add(new UIItem("Baggage volume", "Create Car", " ", "double", Fyll, 10));
+            kommandolista.Add(new UIItem("Fuel type", "Create Car", " ", "string", Fyll, 11));
+            kommandolista.Add(new UIItem("Number of seats", "Create Buss", " ", "int", Fyll, 12));
+            kommandolista.Add(new UIItem("Line", "Create Buss", " ", "int", Fyll, 13));
+            kommandolista.Add(new UIItem("Buoyancy", "Create Boat", " ", "int", Fyll, 14));
+            kommandolista.Add(new UIItem("Length", "Create Boat", " ", "int", Fyll, 15));
+            kommandolista.Add(new UIItem("Maximum altitude", "Create Airplane", " ", "int", Fyll, 16));
+            kommandolista.Add(new UIItem("Airline", "Create Airplane", " ", "int", Fyll, 17));
+            kommandolista.Add(new UIItem("Finish", "Create Vehicle", Create, 18));
+            kommandolista.Add(new UIItem("Car", "Fill Type", CreateCar, 1));
+            kommandolista.Add(new UIItem("Buss", "Fill Type", CreateBuss, 2));
+            kommandolista.Add(new UIItem("Motorcycle", "Fill Type", CreateMC, 3));
+            kommandolista.Add(new UIItem("Boat", "Fill Type", CreateBoat, 4));
+            kommandolista.Add(new UIItem("Airplane", "Fill Type", CreateAirplane, 5));
             var query = from item in kommandolista
                          where item.Category == "Huvudmeny"
                          orderby item.ID
@@ -54,6 +77,90 @@ namespace KlasGarage.Objects.UIcomponents
             active = activeMenu.ElementAt(0);
             
             activeindex = 0;
+        }
+
+        private void CreateAirplane()
+        {
+            var query = from item in kommandolista
+                        where item.Category == "Create Airplane" || item.Category == "Create Vehicle"
+                        orderby item.ID
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+
+            active = activeMenu.ElementAt(0);
+
+            activeindex = 0;
+        }
+
+        private void CreateBoat()
+        {
+            var query = from item in kommandolista
+                        where item.Category == "Create Boat" || item.Category == "Create Vehicle"
+                        orderby item.ID
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+
+            active = activeMenu.ElementAt(0);
+
+            activeindex = 0;
+        }
+
+        private void CreateMC()
+        {
+            var query = from item in kommandolista
+                        where item.Category == "Create Motorcycle" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
+                        orderby item.ID
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+
+            active = activeMenu.ElementAt(0);
+
+            activeindex = 0;
+        }
+
+        private void CreateBuss()
+        {
+            var query = from item in kommandolista
+                        where item.Category == "Create Buss" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
+                        orderby item.ID
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+
+            active = activeMenu.ElementAt(0);
+
+            activeindex = 0;
+        }
+
+        private void CreateCar()
+        {
+            var query = from item in kommandolista
+                        where item.Category == "Create Car" || item.Category == "Create LandVehicle" || item.Category == "Create Vehicle"
+                        orderby item.ID
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+
+            active = activeMenu.ElementAt(0);
+
+            activeindex = 0;
+        }
+
+        private void FyllTyp()
+        {
+            var query = from item in kommandolista
+                        where item.Category == "Fill Type"
+                        orderby item.ID
+                        select item;
+            activeMenu = query.ToList<UIItem>();
+
+            active = activeMenu.ElementAt(0);
+
+            activeindex = 0;
+        }
+
+        private void Create()
+        {
+            string type = activeMenu.Where(item => item.Command == "Type" && item.Category == "Create Vehicle").Take(1).Select(item => item.Additional).ToString();
+            
         }
 
        
@@ -157,6 +264,7 @@ namespace KlasGarage.Objects.UIcomponents
                 }
                 else
                 {
+                    Console.WriteLine("{0} {1} has not been removed.", name, reg);
                     garage.Add(bort);
                 }
             }
@@ -506,23 +614,120 @@ namespace KlasGarage.Objects.UIcomponents
         private void SokFras()
         {
             Console.WriteLine("Input {0}", active.Command);
-            string svar = Console.ReadLine();
+            string svar = "";
+            bool correct = false;
+            switch (active.SearchFieldType)
+            {
+                case "string":
+                    svar = Console.ReadLine();
+                    break;
+                case "int":
+                    int i = 0;
+                    while (!correct)
+                    {
+                        correct = int.TryParse(Console.ReadLine(), out i);
+                        if (!correct)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Input an integer");
+                        }
+                        else
+                        {
+                            svar = i.ToString();
+                        }
+                    }
+                    svar = i.ToString();
+                    break;
+                case "double":
+                    double d = 0;
+                    while (!correct)
+                    {
+                        correct = double.TryParse(Console.ReadLine(), out d);
+                        if (!correct)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Input a double");
+                        }
+                        else
+                        {
+                            svar = d.ToString();
+                        }
+                    }
+                    svar = d.ToString();
+                    break;
+                default:
+                    break;
+            }
+            
             active.Additional = (svar == "")? " " : svar;
+        }
+        private void Fyll()
+        {
+            Console.WriteLine("Input {0}", active.Command);
+            string svar = "";
+            bool correct = false;
+            switch (active.SearchFieldType)
+            {
+                case "string":
+                    svar = Console.ReadLine();
+                    break;
+                case "int":
+                    int i = 0;
+                    while (!correct)
+                    {
+                        correct = int.TryParse(Console.ReadLine(), out i);
+                        if (!correct)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Input an integer");
+                        }
+                        else
+                        {
+                            svar = i.ToString();
+                        }
+                    }
+                    svar = i.ToString();
+                    break;
+                case "double":
+                    double d = 0;
+                    while (!correct)
+                    {
+                        correct = double.TryParse(Console.ReadLine(), out d);
+                        if (!correct)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Input a double");
+                        }
+                        else
+                        {
+                            svar = d.ToString();
+                        }
+                    }
+                    svar = d.ToString();
+                    break;
+                default:
+                    break;
+            }
+
+            active.Additional = (svar == "") ? " " : svar;
         }
 
         private void SokMig()
         {
             var query = from item in kommandolista
-                        where item.Category == "Sök på olika variabler" && !(item.Additional == " " || item.Additional == "")
+                        where item.Category == "Sök på olika variabler" && !(item.Additional == " ")
                         orderby item.ID
                         select item;
             List<UIItem> sokFrasLista = query.ToList<UIItem>();
             var result1 = from fordon in garage
                          select fordon;
+            var result2 = from fordon in garage
+                          select fordon;
             List<Vehicle> fordonLista = result1.ToList<Vehicle>();
+            List<Vehicle> resultLista = result2.ToList<Vehicle>();
             foreach (var item in sokFrasLista)
             {
-                
+
                 switch (item.Command)
                 {
                     case "REG_NR":
@@ -559,10 +764,16 @@ namespace KlasGarage.Objects.UIcomponents
                         result1 = garage.Where(b => fordonLista.Contains(b) && b is Car && (b as Car).FuelType.Contains(item.Additional));
                         break;
                     default:
+                        result1 = from fordon in fordonLista
+                                  select fordon;
                         break;
 
                 }
-                fordonLista = result1.ToList<Vehicle>();
+                //if (item.Command != "Sök")
+                //{
+                    fordonLista = fordonLista.Intersect(result1.ToList<Vehicle>()).ToList<Vehicle>();
+                    item.Additional = " ";
+                //}
             }
             
             PrintaFordon(fordonLista);

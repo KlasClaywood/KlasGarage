@@ -12,6 +12,7 @@ namespace KlasGarage.Objects.UIcomponents
         public string Category { get; private set; }
         public int ID { get; private set; }
         public string Additional { get; set; }
+        public string SearchFieldType { set; get; }
         
  
         public UIItem (string com, string cat, Action kom, int id)
@@ -21,6 +22,7 @@ namespace KlasGarage.Objects.UIcomponents
             Category = cat;
             ID = id;
             Additional = "";
+            SearchFieldType = "";
         }
         public UIItem(string com, string cat, string additional, Action kom, int id)
         {
@@ -29,6 +31,16 @@ namespace KlasGarage.Objects.UIcomponents
             Category = cat;
             ID = id;
             Additional = additional;
+            SearchFieldType = "";
+        }
+        public UIItem (string com, string cat, string additional, string fieldtype, Action kom, int id)
+        {
+            Command = com;
+            Category = cat;
+            kommando = kom;
+            ID = id;
+            Additional = additional;
+            SearchFieldType = fieldtype;
         }
         public void Invoke()
         {
