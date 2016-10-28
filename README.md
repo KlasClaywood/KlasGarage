@@ -1,7 +1,7 @@
 # KlasGarage
 Garage 1.0 En första ihopbindning
 
-# Viktiga lärdomar
+## Viktiga lärdomar
 * **Deferred Execution** Koden väntar med exekveringen av en Query tills den tvingas till det av en `.ToArray()` eller liknande. Så om exekveringen hamnar efter någon ändring av det som queryn går på så blir det på den nya datan som Queryn körs.
 * **XML-filer** Garage använder sig av `XDocument`-, `XElement`-, och `XAttribute`-objekt för att spara och läsa in data mellan körningar.
 * **Planera din kod** Ännu en gång blir det väldigt tydligt vad viktigt det är att planera sin kod. Grundläggande strukturer blir väldigt mödosamma att ändra på sent in i projektet, så var säker på strukturen innan den implementeras. I detta fall var det `GarageUI` och `UIItem` klasserna som fick smaka på detta. Alla fordon ser praktiskt taget identiska ut från den första committen, men `GarageUI` växte sig större och större tills den plötsligt skötte ALLA operationer. Att byta UI vore likvärdigt med att skriva om halva projektet. `UIItem` representerar meny-alternativ och behövde flera gånger få nya egenskaper som nya funktioner krävde, för att inte behöva upprepa meny-kod.
